@@ -221,17 +221,17 @@ begin
     par:=(a mod 2 = 0);
 end;
 
-procedure ordenCrecientePares(a:arbol); 
+procedure ordenDecrecientePares(a:arbol); 
 begin
 	if (a<>nil) then begin
-		    ordenCrecientePares(a^.hi);
+		    ordenDecrecientePares(a^.hd);
 		    if par(a^.dato.numero) then begin
 		        writeln;
 		        writeln('Numero de socio: ', a^.dato.numero);
 		        writeln('Nombre: ', a^.dato.nombre);
 		        writeln('Edad  ', a^.dato.edad);
 		        writeln;
-		    ordenCrecientePares(a^.hd);
+		    ordenDecrecientePares(a^.hi);
 	    end;
 	end;
 end;
@@ -308,5 +308,5 @@ begin //muchas variables podrian simplificarse y procesos compactarse, pero no q
 	writeln('----------ORDEN CRECIENTE-----------');
 	imprimirArbol(a); {inciso 11}
 	writeln('----------ORDEN PARES-----------');
-	ordenCrecientePares(a); {inciso 12}
+	ordenDecrecientePares(a); {inciso 12}
 end.

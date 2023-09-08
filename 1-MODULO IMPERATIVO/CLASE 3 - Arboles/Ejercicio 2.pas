@@ -92,7 +92,7 @@ begin
 	else if (r.codigo = a^.dato.codigo) then begin
 	    a^.dato.cantidad:=a^.dato.cantidad + r.cantidad;
 	end
-	else  if (r.codigo <= a^.dato.codigo) then
+	else  if (r.codigo < a^.dato.codigo) then
 		agregarProductos(a^.hi,r)
 	else
 		agregarProductos (a^.hd,r);
