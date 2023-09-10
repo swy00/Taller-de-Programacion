@@ -64,7 +64,8 @@ end;
 -- FORMA ITERATIVA --
 function minimoNodo (a:arbol): arbol; 
 Begin
-  if (a = nil) then minimoNodo:= nil
+  if (a = nil) then 
+	minimoNodo:= nil
   else 
    while (a^.HI <> nil) do 
      a:= a^.HI; 
@@ -76,7 +77,8 @@ Var
 Begin
  cargarArbol(a); 
  min:= minimoNodo(a);
-   if (min <> nil) then   write (min^.dato);
+   if (min <> nil) then   
+	write (min^.dato);
 End.
 
 

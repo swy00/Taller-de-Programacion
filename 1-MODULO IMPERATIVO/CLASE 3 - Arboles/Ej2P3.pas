@@ -114,8 +114,20 @@ begin
 	imprimirArbol(a2);
 end;
 
+procedure cantVendidas(a:arbol;var cp:integer;var cv:integer);
+begin
+	if (a<>nil) then begin
+		cantVendidas(a^.hi,cp,cv);
+		if (a^.dato.codProd = cp) then begin
+			cv:=cv+a^.dato.cantV;
+		end;
+		cantVendidas(a^.hd,cp,cv);
+	end;
+end;
+
 var
 	a,a2:arbol;
+	codProdABuscar,cantProdVendidas:integer;
 begin
 {i. Generar y retornar un árbol binario de búsqueda de ventas ordenado por código de
 producto.}
@@ -124,7 +136,18 @@ código de producto. Cada nodo del árbol debe contener el código de producto y
 cantidad total de unidades vendida.}
 	a:=nil;
 	armarArbol(a,a2);
-
-	
+{b. Implemente un módulo que reciba el árbol generado en i. y un código de producto y retorne la cantidad total de unidades vendidas de ese producto.}
+	writeln('Introducir Codigo de Producto para buscar undades vendidas');
+	readln(codProdABuscar);
+	cantProdVendidas:=0;
+	cantVendidas(a,codProdABuscar,cantProdVendidas);
+	writeln('Se encontraron ',cantProdVendidas,'ventas del producto con codigo ',codProdABuscar);
+{c. Implemente un módulo que reciba el árbol generado en ii. y un código de producto y retorne la cantidad total de unidades vendidas de ese producto.}
+	writeln('Introducir Codigo de Producto para buscar undades vendidas en el segundo arbol');
+	codProdABuscar:=0;
+	readln(codProdABuscar);
+	cantProdVendidas:=0;
+	cantVendidas(a2,codProdABuscar,cantProdVendidas);
+	writeln('Se encontraron ',cantProdVendidas,'ventas del producto con codigo ',codProdABuscar);
 end.
 
