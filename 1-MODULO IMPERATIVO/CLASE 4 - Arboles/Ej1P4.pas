@@ -113,9 +113,34 @@ begin
 	end;
 end;
 
+procedure menoresQue(a:arbol;cm:integer;var c:integer);
+begin
+	if (a <> nil) then begin
+		//Checkeo si tengo que recorrer la rama derecha, comparando el valor a buscar con el actual del arbol
+		if(a^.dato.codProd < cm) then begin
+			c:=c+1;
+			menoresQue(a^.hd,cm,c);
+		end;
+		menoresQue(a^.hi,cm,c);
+	end;
+end;
+
+procedure entreValores(a:arbol;x,y:integer;var t:real);
+begin
+	if (a <> nil) then begin
+		if (a^.dato.codProd > x) and (a^.dato.codProd < y) then //si está entre [x,y]
+			t:= t + a^.dato.precio;
+		if (a^.dato.codProd > x) then							//caso de que no se cumpla la primera, me queda que el prod sea mayor a Y o menor a X
+			entreValores(a^.hi, x, y, t);						//si es mayor a Y, me voy a la rama izq a buscar menores
+		if (a^.dato.codProd < y) then
+			entreValores(a^.hd, x, y, t);						//si es menor a X, me voy a la rama derecha a buscar mayores
+	end;
+end;
+
 var
 	a:arbol;
-	codProdMasVentas,max:integer;
+	codProdMasVentas,max,cMen,codMenor,x,y:integer;
+	totalValoresEntreXY:real;
 begin
 {a}
 	crearArbol(a); //Ordenado por codigo de producto
@@ -129,10 +154,23 @@ begin
 	writeln('El codigo de producto ',codProdMasVentas,' fue el que mas ventas tuvo con un total de ',max);
 	
 {d. Contenga un módulo que reciba la estructura generada en el punto a y un código de producto y retorne la cantidad de códigos menores que él que hay en la estructura.}	
-	
-	
+	writeln();
+	writeln('--- INTRODUCIR CODIGO DE PRODUCTO PARA ENCONTRAR MENORES ---');
+	readln(codMenor);
+	cMen:=0;
+	menoresQue(a,codMenor,cMen);
+	writeln;
+	writeln('Hubo ',cMen,' codigos de productos menores a ',codMenor);
 {e. Contenga un módulo que reciba la estructura generada en el punto a y dos códigos de producto y retorne el monto total entre todos los códigos de productos comprendidos
 entre los dos valores recibidos (sin incluir).}
-
-
+	totalValoresEntreXY:=0;
+	writeln;
+	writeln('Introducir valores para determinar el rango [x,y]:');
+	write('x=');
+	readln(x);
+	write('y=');
+	readln(y);
+	entreValores(a,x,y,totalValoresEntreXY);
+	writeln;
+	writeln('Hubo ',totalValoresEntreXY,' codigos de productos entre el rango dado')
 end.
