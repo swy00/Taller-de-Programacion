@@ -19,36 +19,31 @@ import PaqueteLectura.Lector;
  */
 public class Ej3P2 {
     public static void main(String [] args){
-        int dias=5,personasPorDia=8,personasInscriptas=0;
+        int dias=5,personasPorDia=8,dni,edad;
         int dia=0,turno=0;
         Persona [][] turnos=new Persona[dias][personasPorDia];
         //supongo que esta completa en 0
-        
+        String nombre = new String("");
         //Mientras que no haya cumplido con los 40 cupos
-        while (personasInscriptas < (personasPorDia*dias)){
+        while ((dia < 5) && (!(nombre.equals("ZZZ")))){
             //Leo la data
             System.out.print("Introducir nombre de la persona: ");
-            String nombre = Lector.leerString();
+            nombre = Lector.leerString();
             System.out.print("Introducir edad de la persona: ");
-            int dni = Lector.leerInt();
+            dni = Lector.leerInt();
             System.out.print("Introducir DNI de la persona: ");
-            int edad= Lector.leerInt();
+            edad= Lector.leerInt();
             //Le asigno lo leido al turno y dia que estoy
             turnos[dia][turno]=new Persona(nombre,dni,edad);
-            //Aumento el numero de inscriptos, y el turno que rellené
-            personasInscriptas++;
+            //Aumento el turno que rellené
             turno++;
             //Si llego al turno max del dia, reseteo turnos y paso de dia, si llegue al ultimo dia significa que terminé
             if(turno == personasPorDia){
                 turno=0;
                 dia++;
                 System.out.println(dia);
-                if (dia == 5){break;}//Ya se completaron todos los dias
             }
-            //Veo si la ultima persona inscripta es "zzz" finalizo las inscripciones
-            if(nombre.equals("ZZZ")){
-                break;
-            }
+            
             System.out.println();
         }
         

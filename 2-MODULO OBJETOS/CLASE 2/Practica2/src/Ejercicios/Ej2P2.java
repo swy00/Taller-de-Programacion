@@ -15,10 +15,11 @@ public class Ej2P2 {
     public static void main(String [] args){
         //Creo el vector de 15 espacios de personas
         int edad,dni,i=0,mayores65=0,menor=9999,pmenor=0;
+        boolean x=false;
         Persona [] personas=new Persona[15];
         GeneradorAleatorio.iniciar();
         //System.out.println(personas.length);
-        while (i<personas.length){
+        while ((i<personas.length)&& !(x)){
             //Genero aleatoriamente un nombre
             String nombre=new String (GeneradorAleatorio.generarString(7));
             edad = GeneradorAleatorio.generarInt(99);
@@ -26,7 +27,7 @@ public class Ej2P2 {
             //System.out.println(edad);
             //Cuando se genere la edad 0, salgo del while
             if (edad == 0){
-                break;
+                x=true;
             }
             else {
                 if(edad>65){mayores65++;}
