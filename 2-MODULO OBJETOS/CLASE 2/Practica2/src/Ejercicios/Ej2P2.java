@@ -46,7 +46,7 @@ public class Ej2P2 {
         System.out.println();
         System.out.println("La info de la persona con el menor DNI es: ");
         System.out.println(personas[pmenor].toString());
-        /*
+        /*      
         //Imprimo el vector
         for (i=0;i<15;i++){
             System.out.println("Persona Numero: "+(i+1));
@@ -55,6 +55,7 @@ public class Ej2P2 {
             System.out.println("Edad: "+personas[i].getEdad());
             System.out.println();
             
-        } */
+        } 
+        */
     }
 }

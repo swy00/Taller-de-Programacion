@@ -24,7 +24,7 @@ public class Ej3P2 {
         Persona [][] turnos=new Persona[dias][personasPorDia];
         //supongo que esta completa en 0
         String nombre = new String("");
-        //Mientras que no haya cumplido con los 40 cupos
+        
         while ((dia < 5) && (!(nombre.equals("ZZZ")))){
             //Leo la data
             System.out.print("Introducir nombre de la persona: ");
@@ -33,9 +33,8 @@ public class Ej3P2 {
             dni = Lector.leerInt();
             System.out.print("Introducir DNI de la persona: ");
             edad= Lector.leerInt();
-            //Le asigno lo leido al turno y dia que estoy
+            
             turnos[dia][turno]=new Persona(nombre,dni,edad);
-            //Aumento el turno que rellené
             turno++;
             //Si llego al turno max del dia, reseteo turnos y paso de dia, si llegue al ultimo dia significa que terminé
             if(turno == personasPorDia){
@@ -52,7 +51,7 @@ public class Ej3P2 {
             for(int j=0;j<personasPorDia;j++){
                 Persona personaActual=turnos[i][j];
                 if (personaActual == null){
-                    break;
+                    return;
                 }else{
                     System.out.print("El día "+(i+1)+" en el turno "+(j+1)+": ");
                     System.out.println(turnos[i][j].toString());
