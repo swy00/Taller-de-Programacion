@@ -1,0 +1,8 @@
+public class NombreDeClase {
+/* Declaración del estado del objeto*/
+/* Declaración de constructor(es) */
+/* Declaración de métodos que implementan acciones */
+}
+
+
+

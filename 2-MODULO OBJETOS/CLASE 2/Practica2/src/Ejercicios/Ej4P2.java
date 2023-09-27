@@ -28,17 +28,17 @@ public class Ej4P2 {
         //Mientras que no haya cumplido con los 40 cupos
         while (((dia < 5))&&(!(nombre.equals("ZZZ")))){
             //Leo la data
-            System.out.print("Introducir nombre de la persona: ");
-            nombre = Lector.leerString();
-            System.out.print("Introducir edad de la persona: ");
-            dni = Lector.leerInt();
-            System.out.print("Introducir DNI de la persona: ");
-            edad= Lector.leerInt();
             System.out.print("Introducir DIA que quiere el turno la persona: ");
             diaSolicitado= Lector.leerInt();
             //Le asigno lo leido al turno y dia que estoy
             turno =vDimL[diaSolicitado];
             if (turno < 8){
+                System.out.print("Introducir nombre de la persona: ");
+                nombre = Lector.leerString();
+                System.out.print("Introducir edad de la persona: ");
+                dni = Lector.leerInt();
+                System.out.print("Introducir DNI de la persona: ");
+                edad= Lector.leerInt();
                 turnos[diaSolicitado][turno]=new Persona(nombre,dni,edad);
                 vDimL[diaSolicitado]++;
             }else {
