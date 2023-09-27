@@ -26,7 +26,7 @@ public class Ej4P2 {
         //Creo un vector de dimLogicas
         int [] vDimL = new int[5];
         //Mientras que no haya cumplido con los 40 cupos
-        while ((!(dia == 5))&&(!(nombre.equals("ZZZ")))){
+        while (((dia < 5))&&(!(nombre.equals("ZZZ")))){
             //Leo la data
             System.out.print("Introducir nombre de la persona: ");
             nombre = Lector.leerString();
@@ -53,9 +53,7 @@ public class Ej4P2 {
         for (int i=0;i<dias;i++){
             for(int j=0;j<personasPorDia;j++){
                 Persona personaActual=turnos[i][j];
-                if (personaActual == null){
-                    break;
-                }else{
+                if (personaActual != null){
                     System.out.print("El día "+(i+1)+" en el turno "+(j+1)+": ");
                     System.out.println(turnos[i][j].getNombre());
                 }

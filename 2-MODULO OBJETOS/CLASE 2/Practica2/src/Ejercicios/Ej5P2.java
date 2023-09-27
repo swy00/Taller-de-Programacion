@@ -42,8 +42,6 @@ public class Ej5P2 {
         String unLocal,gPartido,unVisitante=" ";
         int unGolLocal,unGolVisitante,i,totalPartidos=0,pGRiver=0,gBocaLocal=0;
         ///////////////////////////////////////////////
-        
-        
         while ((!(unVisitante.equals("ZZZ")))&&(totalPartidos < 20)){
             System.out.println();
             System.out.print("Introducir Nombre Equipo VISITANTE: ");

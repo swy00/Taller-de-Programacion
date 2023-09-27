@@ -40,7 +40,7 @@ public class Ej3P2 {
             if(turno == personasPorDia){
                 turno=0;
                 dia++;
-                System.out.println(dia);
+                //System.out.println(dia);
             }
             
             System.out.println();
@@ -50,9 +50,7 @@ public class Ej3P2 {
         for (int i=0;i<dias;i++){
             for(int j=0;j<personasPorDia;j++){
                 Persona personaActual=turnos[i][j];
-                if (personaActual == null){
-                    return;
-                }else{
+                if (personaActual != null){
                     System.out.print("El día "+(i+1)+" en el turno "+(j+1)+": ");
                     System.out.println(turnos[i][j].toString());
                 }
