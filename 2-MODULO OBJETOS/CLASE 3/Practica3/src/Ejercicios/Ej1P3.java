@@ -24,7 +24,7 @@ public class Ej1P3 {
     public static void main(String [] args){
         
         Triangulo triangulo = new Triangulo();
-        //LECTURA Y ASIGNACION
+        //LEER Y ASIGNAR VALORES
         System.out.print("Introducir LADO 1: ");
         triangulo.setLado1(Lector.leerInt());
         System.out.print("Introducir LADO 2: ");
@@ -36,7 +36,7 @@ public class Ej1P3 {
         System.out.print("Introducir COLOR DE RELLENO: ");
         triangulo.setColorRelleno(Lector.leerString());
         //
-        //IMPRESION DE PERIMETRO Y AREA
+        //IMPRIMIR PERIMETRO Y AREA
         System.out.println("El perimetro del triangulo es: "+triangulo.calcularPerimetro()+" y su area es: "+triangulo.calcularArea());
         
     }

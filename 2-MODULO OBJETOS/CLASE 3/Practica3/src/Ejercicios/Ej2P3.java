@@ -18,5 +18,12 @@ package Ejercicios;
  * @author franc
  */
 public class Ej2P3 {
-    
+    public static void main(String [] args){
+        //--------------- A ---------------
+        
+        Autor autor = new Autor();
+        Libro libro = new Libro(autor);
+        
+        System.out.println(libro.toString());
+    }
 }

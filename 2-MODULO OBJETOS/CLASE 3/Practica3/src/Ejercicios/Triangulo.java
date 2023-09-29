@@ -76,8 +76,8 @@ public class Triangulo {
     }
 
     public double calcularArea(){
-        double s=(lado1+lado2+lado3)/2;
-        double area = Math.sqrt(s * (s - lado1) * (s - lado2) * (s - lado3));
+        double p=(lado1+lado2+lado3)/2;
+        double area = Math.sqrt(p * (p - lado1) * (p - lado2) * (p - lado3));
         return area;
     }
 }
