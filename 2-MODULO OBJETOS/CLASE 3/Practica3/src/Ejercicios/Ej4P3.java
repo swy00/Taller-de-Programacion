@@ -2,9 +2,11 @@
 4-A- Un hotel posee N habitaciones. De cada habitación conoce costo por noche, si está
 ocupada y, en caso de estarlo, guarda el cliente que la reservó (nombre, DNI y edad).
 (i) Genere las clases necesarias. Para cada una provea métodos getters/setters adecuados.
+
 (ii) Implemente los constructores necesarios para iniciar: los clientes a partir de nombre,
 DNI, edad; el hotel para N habitaciones, cada una desocupada y con costo aleatorio e/
 2000 y 8000.
+
 (iii) Implemente en las clases que corresponda todos los métodos necesarios para:
 - Ingresar un cliente C en la habitación número X. Asuma que X es válido (es decir, está
 en el rango 1..N) y que la habitación está libre.

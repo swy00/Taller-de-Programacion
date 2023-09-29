@@ -45,7 +45,6 @@ public class Ej3P3 {
         estante.agregarLibro(lib3);
         //(iv) devolver el libro con un título particular que se recibe.
         System.out.print("Ingresar un titulo para devolver info de ese libro: ");
-        String l=Lector.leerString();
-        System.out.println(estante.encontrarLibro(l));
+        System.out.println(estante.encontrarLibro(Lector.leerString()));
     }
 }

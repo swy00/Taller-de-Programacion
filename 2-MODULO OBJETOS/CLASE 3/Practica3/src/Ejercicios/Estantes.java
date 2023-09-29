@@ -12,7 +12,7 @@ public class Estantes {
     private Libro[] libros;
     //Para llevar la cuenta de cuantos libros hay en el estante
     private int cantLibros=0;
-    private boolean lleno=true;
+    private boolean lleno=false;
     
     //CONSTRUCTOR DE ESTANTE SIN LIBROS
     public Estantes(){
@@ -20,11 +20,11 @@ public class Estantes {
     }
 
     public int getCantLibros() {
-        return cantLibros;
+        return this.cantLibros;
     }
 
     public Libro[] getLibros() {
-        return libros;
+        return this.libros;
     }
 
     public void setLibros(Libro[] libros) {
@@ -52,16 +52,14 @@ public class Estantes {
     public String encontrarLibro(String unNombre){
         //Recorro el estante checkeando el nombre
         int pos=-1;
-        String aux;
         boolean existe=false;
+        
         for (int i = 0; i < this.cantLibros; i++) {
             if (this.libros[i].getTitulo().equals(unNombre)){
                 existe=true;
                 pos=i;
             }   
         }
-     
-        aux = (existe) ? this.libros[pos].toString() : "El libro no se encontró";
-        return aux;
+        return (existe) ? this.libros[pos].toString() : "El libro no se encontró";
     }
 }
