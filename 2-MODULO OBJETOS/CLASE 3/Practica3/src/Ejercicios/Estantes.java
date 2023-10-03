@@ -12,7 +12,6 @@ public class Estantes {
     private Libro[] libros;
     //Para llevar la cuenta de cuantos libros hay en el estante
     private int cantLibros=0;
-    private boolean lleno=false;
     
     //CONSTRUCTOR DE ESTANTE SIN LIBROS
     public Estantes(){
@@ -41,12 +40,7 @@ public class Estantes {
         }
     }
     public boolean estaLleno(){
-        if(this.cantLibros<20){
-            this.lleno=false;
-        }else{
-            this.lleno=true;
-        }
-        return this.lleno;
+        return (!(this.cantLibros<20));
     }
     
     public String encontrarLibro(String unNombre){
