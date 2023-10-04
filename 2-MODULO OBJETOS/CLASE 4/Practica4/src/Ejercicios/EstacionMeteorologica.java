@@ -46,7 +46,7 @@ public abstract class EstacionMeteorologica {
 
     @Override
     public String toString() {
-        return '"' + getNombre() +" ("+getLatitud()+" S - "+ getLongitud() +" O):";
+        return '"' + this.getNombre() +" ("+this.getLatitud()+" S - "+ this.getLongitud() +" O):";
                
     }
     

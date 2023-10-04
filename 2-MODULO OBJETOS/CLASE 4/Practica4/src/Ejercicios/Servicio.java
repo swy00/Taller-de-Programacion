@@ -29,7 +29,7 @@ public class Servicio extends EstacionMeteorologica{
         } 
     }
     private boolean validarDatos(int año,int mes){
-        return ((año >= aInicial && año < (aInicial + cantAnios) && mes >= 1 && mes <= 12));
+        return ((año >= this.aInicial && año < (this.aInicial + this.cantAnios) && mes >= 1 && mes <= 12));
     }
     //--------------------B--------------------
     //El mes está en rango 1..12 y el año está en rango A..A+N-1. Siendo N cant de años consecutivos
@@ -39,7 +39,7 @@ public class Servicio extends EstacionMeteorologica{
         if (validarDatos(año,(mes))){
             tempAños[(año-this.aInicial)][(mes-1)]=temp;
         }else{
-            System.out.println("Informacion ingresada INCORRECTA: " + año + "/" + mes);
+            System.out.println("Informacion ingresada INCORRECTA: " + mes + "/" + año);
         }
     }
     //--------------------C--------------------
