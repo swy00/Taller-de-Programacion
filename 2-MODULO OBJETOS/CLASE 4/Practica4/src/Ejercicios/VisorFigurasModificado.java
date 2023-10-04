@@ -20,7 +20,7 @@ public class VisorFigurasModificado {
         this.guardadas=0;
     }
     public void guardar(Figura f){
-        if (this.guardadas < this.capacidadMaxima) {
+        if (this.quedaEspacio()) {
             this.vector[guardadas] = f;
             this.guardadas++;
         } else {

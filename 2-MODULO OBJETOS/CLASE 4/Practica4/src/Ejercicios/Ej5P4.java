@@ -16,6 +16,7 @@ public class Ej5P4 {
         Cuadrado c2= new Cuadrado(30,"Rojo","Naranja");
         VisorFigurasModificado visor = new VisorFigurasModificado();
         visor.guardar(c1);visor.guardar(r);visor.guardar(c2);
+        visor.guardar(c1);visor.guardar(r);visor.guardar(c2);
         visor.mostrar();
     }
 }
