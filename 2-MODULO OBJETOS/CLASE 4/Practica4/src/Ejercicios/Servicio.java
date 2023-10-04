@@ -24,26 +24,22 @@ public class Servicio extends EstacionMeteorologica{
         //Me pide que inicialice las temperaturas en un valor alto
         for (int i=0;i<cantAnios;i++){
             for (int j=0;j<12;j++){
-                this.tempAños[i][j]=500;
+                this.tempAños[i][j]=100;
             }
         } 
     }
     private boolean validarDatos(int año,int mes){
-        if ( (año >= this.aInicial) && (año < (this.aInicial+this.cantAnios)) && (mes > 1) && (mes < 12)){
-            return true;
-        }else{
-            return false;
-        }
+        return ((año >= aInicial && año < (aInicial + cantAnios) && mes >= 1 && mes <= 12));
     }
     //--------------------B--------------------
     //El mes está en rango 1..12 y el año está en rango A..A+N-1. Siendo N cant de años consecutivos
     public void registrarTemperatura(int mes,int año,double temp){
         //Checkeo que lo ingresado sea correcto antes de asignar
         //que año esté entre añoInicial+cantAños y que mes en el rango 1-12
-        if (validarDatos(año,(mes-1))){
-            tempAños[(año-this.aInicial)][(mes)]=temp;
+        if (validarDatos(año,(mes))){
+            tempAños[(año-this.aInicial)][(mes-1)]=temp;
         }else{
-            System.out.println("Informacion ingresada INCORRECTA");
+            System.out.println("Informacion ingresada INCORRECTA: " + año + "/" + mes);
         }
     }
     //--------------------C--------------------
@@ -68,7 +64,7 @@ public class Servicio extends EstacionMeteorologica{
                 }
             }
         } 
-        return "La temperatura maxima fue registrada en el mes "+mes+" año "+(año+this.aInicial)+" se midio "+max;
+        return "La temperatura maxima fue registrada en el mes "+(mes+1)+" año "+(año+this.aInicial)+" se midio "+max;
     }
     
     

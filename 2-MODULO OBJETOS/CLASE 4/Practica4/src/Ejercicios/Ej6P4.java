@@ -60,12 +60,12 @@ public class Ej6P4 {
      */
     public static void main(String[] args) {
         ServicioAnual eA = new ServicioAnual(3,2021,"La Plata",-34.921,57.955);//(int cantAnios, int aInicial, String nombre, double latitud, double longitud)
-        //Registro algunas temperaturas
-        eA.registrarTemperatura(3, 2022, 30);eA.registrarTemperatura(1, 2022, 40);eA.registrarTemperatura(2, 2022, 28);
+        //Registro algunas temperaturas (int mes,int año,double temp)
+        eA.registrarTemperatura(3, 2022, 30);eA.registrarTemperatura(1, 2022, 38);eA.registrarTemperatura(2, 2022, 28);
         //Promedios Anuales
         System.out.println("Servicio con reportes Anuales");
         System.out.println(eA.toString());
-        //Registro de la mayor temperatura
+        //Imprimo fecha de la mayor temperatura
         System.out.println(eA.mayorTemp());
         
         
@@ -73,8 +73,8 @@ public class Ej6P4 {
         System.out.println();
         System.out.println("Servicio con reportes Mensuales");
         ServicioMensual eM = new ServicioMensual(4,2020,"Mar del Plata",-38.002,-57.556);
-        eM.registrarTemperatura(3, 2022, 30);eM.registrarTemperatura(1, 2024, 40);eM.registrarTemperatura(2, 2020, 28);
-        eM.registrarTemperatura(3, 2022, 32);eM.registrarTemperatura(1, 2023,33);eM.registrarTemperatura(2, 2020, 30);
+        eM.registrarTemperatura(3, 2022, 30);eM.registrarTemperatura(1, 2023, 40);eM.registrarTemperatura(2, 2020, 28);
+        eM.registrarTemperatura(3, 2022, 32);eM.registrarTemperatura(1, 2023, 33);eM.registrarTemperatura(2, 2020, 30);
         eM.registrarTemperatura(3, 2022, 25);eM.registrarTemperatura(1, 2023, 30);eM.registrarTemperatura(2, 2020, 10);
         //Promedios Mensuales
         System.out.println(eM.toString());

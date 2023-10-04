@@ -15,7 +15,7 @@ public class ServicioMensual extends Servicio{
         super(cantAnios, aInicial, nombre, latitud, longitud);
     }
     
-    public String sistemaPromedioMensual(){
+    private String sistemaPromedioMensual(){
         String[] meses = {"Enero", "Febrero", "Marzo", "Abril","Mayo", "Junio", "Julio", "Agosto","Septiembre", "Octubre", "Noviembre", "Diciembre"};
         //Recorro los años sacando promedio del mes, me clavo en un mes y lo busco en los años
         String aux="";
@@ -24,7 +24,7 @@ public class ServicioMensual extends Servicio{
             for (int i=0;i< this.getCantAnios();i++){    
                 mes+=this.getTempAños()[i][j];
             }
-            aux+="\n         - "+meses[j]+": "+mes+" °C;";  
+            aux+="\n         - "+meses[j]+": "+(mes/this.getCantAnios())+" °C;";  
         }
         return aux;
     }

@@ -16,7 +16,7 @@ public class ServicioAnual extends Servicio{
     }
 
     
-    public String sistemaPromedioAnual(){
+    private String sistemaPromedioAnual(){
         //Recorro la matriz en la fila correspondiente sumando las temperaturas de todos los meses
         String aux="";
         for (int i=0;i<this.getCantAnios();i++){
@@ -24,7 +24,7 @@ public class ServicioAnual extends Servicio{
             for (int j=0;j<12;j++){
                 año+=this.getTempAños()[i][j];
             }
-            aux+="\n"+"         - Año "+ (this.getaInicial()+i)+": "+(año/12)+" °C;";
+            aux+="\n         - Año "+ (this.getaInicial()+i)+": "+(año/12)+" °C;";
         }
         return aux;
     }
