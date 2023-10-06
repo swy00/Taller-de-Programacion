@@ -34,7 +34,7 @@ iii) Escriba un programa que instancie un proyecto con tres investigadores. Agre
 subsidios a cada investigador y otorgue los subsidios de uno de ellos. Luego imprima
 todos los datos del proyecto en pantalla.
  */
-package ejercicio1;
+package Ej1;
 
 /**
  *
