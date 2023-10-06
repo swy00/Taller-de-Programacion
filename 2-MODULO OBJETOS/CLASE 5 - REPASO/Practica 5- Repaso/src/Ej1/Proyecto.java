@@ -76,8 +76,8 @@ public class Proyecto{
     
     @Override
     public String toString() {
-        String aux= "----PROYECTO---- " + this.nombre + "\n     Codigo: " + this.codigo + "\n     Nombre del Director: " + this.nombreDirector
-                    +"\n     Total de dinero otorgado: "+ this.calcularTotalSubsidios();
+    String aux= "----PROYECTO "+this.nombre +"---- " + "\n Codigo: " + this.codigo + "\n Nombre del Director: " + this.nombreDirector
+                    +"\n Total de dinero otorgado: "+ this.calcularTotalSubsidios();
         
         for (int i=0;i< this.cantInvestigadores;i++){
             aux+= "\n"+ this.investigadores[i].toString();

@@ -50,10 +50,10 @@ public class Investigador  {
     @Override
     public String toString() {
         return "----INVESTIGADOR----"+
-               "\n          Nombre: " + this.nombreInvestigador +
-               "\n          Categoría: " + this.categoria +
-               "\n          Especialidad: " + this.especialidad +
-               "\n          Total subsidios otorgados: " + this.calcularTotalSubsidiosXInvest();
+               "\n Nombre: " + this.nombreInvestigador +
+               "\n Categoría: " + this.categoria +
+               "\n Especialidad: " + this.especialidad +
+               "\n Total subsidios otorgados: " + this.calcularTotalSubsidiosXInvest();
     }
     
     
