@@ -16,7 +16,7 @@ public class Proyecto{
     //Vector para almacenar los inv, 50 como max
     private Investigador[] investigadores;
     private int cantInvestigadores;
-    private double totalOtorgado=0;
+    //private double totalOtorgado=0;
 
     public Proyecto(String nombre, int codigo, String nombreDirector) {
         this.nombre = nombre;
@@ -24,7 +24,6 @@ public class Proyecto{
         this.nombreDirector = nombreDirector;
         this.investigadores=new Investigador[50]; //Maximo 50 invest, inicia vacio (0 investigadores)
         this.cantInvestigadores=0;
-        this.totalOtorgado=0;
     }
     
     public void agregarInvestigador(Investigador unInvestigador){
@@ -48,8 +47,7 @@ public class Proyecto{
                 for (int j = 0; j < investigadores[i].getSubPedidos(); j++) {
                     if (!(investigadores[i].getSubsidios()[j].isOtorgado())) {
                         s[j].setOtorgado(true);
-                        double monto = investigadores[i].getSubsidios()[j].getMontoPedido();
-                        this.actualizarTotalOtorgado(monto);        
+                        double monto = investigadores[i].getSubsidios()[j].getMontoPedido();        
                     }
                 }
             }
@@ -58,20 +56,18 @@ public class Proyecto{
             System.out.println("No se encontró un investigador con ese nombre.");
         }
     }
-    public void actualizarTotalOtorgado(double monto) {
-        this.totalOtorgado += monto;
-    }
+   
     public double calcularTotalSubsidios(){
-        this.totalOtorgado=0;
+        int totalOtorgado=0;
         for (int i = 0; i < this.cantInvestigadores; i++){
             for (int j = 0; j < this.investigadores[i].getSubPedidos(); j++) {
                 if ((this.investigadores[i].getSubsidios()[j].isOtorgado())) {
                         double monto = this.investigadores[i].getSubsidios()[j].getMontoPedido();
-                        this.actualizarTotalOtorgado(monto);        
+                        totalOtorgado+=monto;        
                     }
             }
         }
-        return this.totalOtorgado;
+        return totalOtorgado;
     }
     
     @Override
@@ -83,71 +79,5 @@ public class Proyecto{
             aux+= "\n"+ this.investigadores[i].toString();
         }
         return aux;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public double getTotalOtorgado() {
-        return totalOtorgado;
-    }
-
-    public void setTotalOtorgado(double totalOtorgado) {
-        this.totalOtorgado = totalOtorgado;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombreDirector() {
-        return nombreDirector;
-    }
-
-    public void setNombreDirector(String nombreDirector) {
-        this.nombreDirector = nombreDirector;
-    }
-
-    public Investigador[] getInvestigadores() {
-        return investigadores;
-    }
-
-    public void setInvestigadores(Investigador[] investigadores) {
-        this.investigadores = investigadores;
-    }
-
-    public int getCantInvestigadores() {
-        return cantInvestigadores;
-    }
-
-    public void setCantInvestigadores(int cantInvestigadores) {
-        this.cantInvestigadores = cantInvestigadores;
-    }
-    
-    
-    
-    
-    
-    
+    }   
 }

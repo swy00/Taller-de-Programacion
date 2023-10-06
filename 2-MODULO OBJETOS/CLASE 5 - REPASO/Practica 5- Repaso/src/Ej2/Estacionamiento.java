@@ -54,7 +54,7 @@ public class Estacionamiento {
                 if (!(this.lugar[i][j] == null)){
                     if (this.lugar[i][j].getPatente().equals(p)){
                     e=true;
-                    aux="El auto con patente"+p+" se encuentra en el piso "+(i+1)+" num de plaza "+(j+1);
+                    aux="El auto con patente "+p+" se encuentra en el piso "+(i+1)+" num de plaza "+(j+1);
                     }
                 }
             }
@@ -99,11 +99,5 @@ public class Estacionamiento {
         }
         return cant;
     }
-    
-        
-    
-    
-    
-    
     
 }

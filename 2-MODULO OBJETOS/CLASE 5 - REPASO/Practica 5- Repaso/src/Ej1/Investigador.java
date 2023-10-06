@@ -61,26 +61,6 @@ public class Investigador  {
         return nombreInvestigador;
     }
 
-    public void setNombreInvestigador(String nombreInvestigador) {
-        this.nombreInvestigador = nombreInvestigador;
-    }
-
-    public int getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
     public Subsidio[] getSubsidios() {
         return subsidios;
     }
@@ -93,7 +73,4 @@ public class Investigador  {
         return subPedidos;
     }
 
-    public void setSubPedidos(int subPedidos) {
-        this.subPedidos = subPedidos;
-    }
 }
