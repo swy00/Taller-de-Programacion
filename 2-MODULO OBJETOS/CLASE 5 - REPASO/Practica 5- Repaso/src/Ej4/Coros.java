@@ -32,4 +32,5 @@ public abstract class Coros {
     }
     
     public abstract void agregarCorista(Corista c);
+    public abstract String ordenadoCorrectamente();
 }
