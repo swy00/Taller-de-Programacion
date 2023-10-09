@@ -50,7 +50,7 @@ public class Ej7Parcialviejo {
         cP.incrementarAsistencia(232);cP.incrementarAsistencia(232);cP.incrementarAsistencia(232);cP.incrementarAsistencia(232);
         
         cD.aprobarAutoevaluacion(11);cD.aprobarAutoevaluacion(11);cD.aprobarAutoevaluacion(11);
-        //cP.aprobarAutoevaluacion(232);
+        cP.aprobarAutoevaluacion(232);
         
         System.out.println("Pueden rendir del Curso Presencial "+cP.cantidadDeAlumnosQuePuedenRendir()+" alumnos");
         System.out.println("Pueden rendir del Curso a Distancia "+cD.cantidadDeAlumnosQuePuedenRendir()+" alumnos");

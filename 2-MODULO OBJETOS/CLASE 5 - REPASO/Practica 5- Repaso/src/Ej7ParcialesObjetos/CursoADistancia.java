@@ -18,7 +18,7 @@ public class CursoADistancia extends Curso{
     }
     
     public  boolean puedeRendir(Alumno a){
-        if ((a.getAsistencias()>=1)&&(a.getCantAutoevaluacionesAprobadas()==3)){
+        if ((a.getAsistencias()>=1)&&(a.getCantAutoevaluacionesAprobadas()>=3)){
             return true;
         }else{
             return false;

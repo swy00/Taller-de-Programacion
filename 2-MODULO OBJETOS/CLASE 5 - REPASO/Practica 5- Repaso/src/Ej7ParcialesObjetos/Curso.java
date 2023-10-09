@@ -26,8 +26,9 @@ public abstract class Curso {
             this.a[this.dimL]=a;
             this.dimL++;
             return true;
+        }else{
+            return false;
         }
-        return false;
     }
     
     public void incrementarAsistencia(int d){
