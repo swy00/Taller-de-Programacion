@@ -30,4 +30,6 @@ public abstract class Coros {
     public Director getDirector() {
         return director;
     }
+    
+    public abstract void agregarCorista(Corista c);
 }
