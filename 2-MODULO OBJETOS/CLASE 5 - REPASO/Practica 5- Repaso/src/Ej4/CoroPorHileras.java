@@ -33,14 +33,13 @@ public class CoroPorHileras extends Coros{
         if ((this.filaActual < this.c.length)){ //c[x].length devuelve columnas ,c.length filas  
             this.c[this.filaActual][this.cantCoristas]=c;
             this.cantCoristas++;
-            if (this.cantCoristas == this.c[0].length){ // Una vez que completo la fila, reseteo y paso a la prox
+            if ((this.cantCoristas == this.c[0].length )&&(this.filaActual<this.c.length)){ // Una vez que completo la fila, reseteo y paso a la prox
                 this.filaActual++;
                 this.cantCoristas=0;
-                if(this.filaActual==this.c.length){
+            }else if((this.filaActual==this.c.length)&&(this.cantCoristas==this.c[0].length)){
                     System.out.println("Coro COMPLETO");
                     this.completo=true;
                 }
-            }
         }else{
             System.out.println("Coro COMPLETO no se pudo agregar a corista");
         }
