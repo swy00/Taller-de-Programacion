@@ -1,0 +1,48 @@
+programa test
+procesos //Procesos utilizados
+	proceso nombre (ES flores:numero, E valor:boolean)
+	variables
+		nombre:tipo
+	comenzar
+	//Codigo del proceso
+	fin
+areas //Áreas de la ciudad
+//areaC:área compartida(pueden acceder todos los
+robots declarados)
+	ciudad1: areaC(1,1,10,10)
+//areaP: área privada (puede acceder solo un
+robot de los declarados)
+	ciudad2: areaP(15,15,20,20)
+//areaPC: área parcialmente compartida
+(pueden acceder más de un robot pero no todos
+los robots declarados)
+	ciudad3: areaPc(30,32,50,51)
+robots //Robots del programa
+
+robot tipo1
+  variables
+    ....
+  comenzar
+     //Codigo del robot
+  fin
+robot tipo2
+  variables
+    ....
+  comenzar
+     //Codigo del robot
+  fin
+
+variables  //Variables robots
+	robot1:tipo1
+	robot3:tipo1
+	robot2:tipo2
+comenzar 
+//Asignacion de áreas
+Todos los robots declarados deben estar asignados al menos a un area
+Un robot puede estar asignado a 1 o más de un áreas del programa
+//Inicializacion de robots
+
+AsignarArea(robot1,ciudad1)
+iniciar(robot1,5,5)
+
+fin
