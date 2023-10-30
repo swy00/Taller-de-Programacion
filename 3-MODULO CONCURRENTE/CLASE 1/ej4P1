@@ -1,0 +1,51 @@
+programa Ej4P1
+procesos
+  proceso recorrerArea(E t:boolean)
+  comenzar
+    repetir 25
+      repetir 5
+        si (t)
+          mientras (HayFlorEnLaEsquina)
+            tomarFlor
+        sino
+          mientras (HayPapelEnLaEsquina)
+            tomarPapel
+        mover
+      si ~((PosAv = 25) | (PosAv = 50) | (PosAv = 75) | (PosAv = 100))
+        Pos(PosAv+1,1)
+  fin
+areas
+  areaImpar1:AreaP(1,1,25,100)
+  areaImpar2:AreaP(51,1,75,100)
+  areaPar1:AreaP(26,1,50,100)
+  areaPar2:AreaP(76,1,100,100)
+robots
+  robot rPar
+  variables
+    par:boolean
+  comenzar
+    par:= F
+    recorrerArea(par)
+    Pos(76,1)
+    recorrerArea(par)
+  fin
+  robot rImpar
+  variables
+    impar:boolean
+  comenzar
+    impar:=V
+    recorrerArea(impar)
+    Pos(51,1)
+    recorrerArea(impar)
+  fin
+variables
+  robotImpar:rImpar
+  robotPar:rPar
+comenzar
+  AsignarArea(robotImpar,areaImpar1)
+  AsignarArea(robotImpar,areaImpar2)
+  AsignarArea(robotPar,areaPar1)
+  AsignarArea(robotPar,areaPar2)
+  Iniciar(robotImpar,1,1)
+  Iniciar(robotPar,26,1)
+fin
