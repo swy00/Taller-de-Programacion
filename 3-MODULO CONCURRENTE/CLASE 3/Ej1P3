@@ -1,0 +1,91 @@
+programa ej1P3
+procesos
+  proceso agarrarFlores(ES cantFlores:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantFlores:=cantFlores+1
+  fin 
+  proceso agarrarPapeles(ES cantPapeles:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)  
+      tomarPapel
+      cantPapeles:= cantPapeles+1
+  fin
+areas
+  area1F:AreaP(6,10,6,10)
+  area2F:AreaP(7,10,7,10)
+  area1P:AreaP(8,10,8,10)
+  area2P:AreaP(9,10,9,10)
+  areaFlor: AreaPC(1,1,5,10)
+  areaPapel: AreaPC(6,1,10,9)
+  areaDeposito:AreaC(10,10,10,10)
+robots
+  robot recolectorFlor
+  variables
+    cantFlores:numero
+    rAv,rCa,av,ca:numero
+  comenzar
+    cantFlores:=0
+    av:=PosAv
+    ca:=PosCa
+    repetir 5
+      Random(rAv,1,5)
+      Random(rCa,1,10)
+      BloquearEsquina(rAv,rCa)
+      Pos(rAv,rCa)
+      agarrarFlores(cantFlores)
+      Pos(av,ca)
+      LiberarEsquina(rAv,rCa)
+    mientras(HayFlorEnLaBolsa)
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      depositarFlor
+      Pos(av,ca)
+      LiberarEsquina(10,10)
+  fin 
+  robot recolectorPapel
+  variables
+    rAv,rCa,av,ca:numero
+    cantPapeles:numero
+  comenzar
+    av:=PosAv
+    ca:=PosCa
+    repetir 3
+      Random(rAv,6,10)
+      Random(rCa,1,9)
+      BloquearEsquina(rAv,rCa)
+      Pos(rAv,rCa)
+      agarrarPapeles(cantPapeles)
+      Pos(av,ca)
+      LiberarEsquina(rAv,rCa) 
+    mientras (HayPapelEnLaBolsa)
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      depositarPapel
+      Pos(av,ca)
+      LiberarEsquina(10,10)
+  fin
+variables
+  robot1F:recolectorFlor
+  robot2F:recolectorFlor
+  robot1P:recolectorPapel
+  robot2P:recolectorPapel
+comenzar
+  AsignarArea(robot1F,areaFlor)
+  AsignarArea(robot1F,area1F)
+  AsignarArea(robot2F,areaFlor)
+  AsignarArea(robot2F,area2F)
+  AsignarArea(robot1P,areaPapel)
+  AsignarArea(robot1P,area1P)
+  AsignarArea(robot2P,areaPapel)
+  AsignarArea(robot2P,area2P)
+  AsignarArea(robot1F,areaDeposito)
+  AsignarArea(robot2F,areaDeposito)
+  AsignarArea(robot1P,areaDeposito)
+  AsignarArea(robot2P,areaDeposito)
+  Iniciar(robot1F,6,10)
+  Iniciar(robot2F,7,10)
+  Iniciar(robot1P,8,10)
+  Iniciar(robot2P,9,10)
+fin
