@@ -1,0 +1,71 @@
+programa Ej2P2
+procesos
+  proceso tomarFlorYPapel(ES flor:numero;ES papel:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      flor:=flor+1
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      papel:=papel+1
+  fin
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso escalera(ES cantEscalones:numero)
+  variables
+    altura:numero
+    flor:numero
+    papel:numero
+  comenzar
+    repetir 4
+      flor:=0
+      papel:=0
+      Random(altura,1,5)
+      repetir altura
+        tomarFlorYPapel(flor,papel)
+        mover
+      derecha
+      mover
+      izquierda
+      si (flor > papel)
+        cantEscalones:=cantEscalones+1   
+  fin
+areas
+  ciudad: AreaC(1,1,100,100)
+robots
+  robot tipo1
+  variables
+    cantEscalones:numero
+  comenzar
+    cantEscalones:=0
+    escalera(cantEscalones)
+    EnviarMensaje(cantEscalones,robotJefe)
+  fin
+  robot Jefe
+  variables
+    escalonesTotales,esc:numero
+  comenzar
+    escalonesTotales:=0
+    repetir 3
+      RecibirMensaje(esc,*)
+      escalonesTotales:=escalonesTotales+esc
+    Informar('El_Total_De_Escalones_con_mas_flores_que_papeles_fue_de',escalonesTotales)
+  fin
+variables
+  robot1:tipo1
+  robot2:tipo1
+  robot3:tipo1
+  robotJefe:Jefe
+comenzar
+  AsignarArea(robotJefe,ciudad)
+  AsignarArea(robot1,ciudad)
+  AsignarArea(robot2,ciudad)
+  AsignarArea(robot3,ciudad)
+  Iniciar(robotJefe,1,1)
+  Iniciar(robot1,2,1)
+  Iniciar(robot2,7,1)
+  Iniciar(robot3,12,1)
+fin

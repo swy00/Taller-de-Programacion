@@ -1,0 +1,83 @@
+programa ej3P2
+procesos
+  proceso agarrarPapeles(ES cantPapeles:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantPapeles:=cantPapeles+1
+  fin
+  proceso agarrarFlores(ES cantFlores:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantFlores:=cantFlores+1
+  fin
+
+areas
+  areaA:AreaPC(1,1,20,1)
+  areaB:AreaPC(1,5,20,5)
+  
+robots
+  robot tipoA1
+  variables
+    cantPapeles:numero
+  comenzar
+    derecha
+    cantPapeles:=0
+    repetir 9
+      agarrarPapeles(cantPapeles)
+      mover
+    agarrarPapeles(cantPapeles)
+    EnviarMensaje(1,robotA2)
+    EnviarMensaje(cantPapeles,robotA2)
+  fin
+  robot tipoB1
+  variables
+    cantFlores:numero
+  comenzar
+    derecha
+    cantFlores:=0
+    repetir 9
+      agarrarFlores(cantFlores)
+      mover
+    EnviarMensaje(2,robotB2)
+    EnviarMensaje(cantFlores,robotB2)
+  fin
+  robot tipo2
+  variables
+    florOPapel:numero
+    cantElementos:numero
+  comenzar
+    derecha
+    repetir 2
+      florOPapel:=0
+      cantElementos:=0
+      RecibirMensaje(florOPapel,*)
+      si(florOPapel = 1)
+        RecibirMensaje(cantElementos,robotA1)
+        repetir 9
+          agarrarPapeles(cantElementos)
+          mover
+        Informar('El_Equipo_A_Junto',cantElementos)
+      sino
+        RecibirMensaje(cantElementos,robotB1)
+        repetir 9
+          agarrarFlores(cantElementos)
+          mover
+        Informar('El_Equipo_B_Junto',cantElementos)
+  fin
+variables
+  robotA1:tipoA1
+  robotA2:tipo2
+  robotB1:tipoB1
+  robotB2:tipo2
+comenzar
+  AsignarArea(robotA1,areaA)
+  AsignarArea(robotA2,areaA)
+  AsignarArea(robotB1,areaB)
+  AsignarArea(robotB2,areaB)
+  Iniciar(robotA1,1,1)
+  Iniciar(robotA2,11,1)
+  Iniciar(robotB1,1,5)
+  Iniciar(robotB2,11,5)
+fin
