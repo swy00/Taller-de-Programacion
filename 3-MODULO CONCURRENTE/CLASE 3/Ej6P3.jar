@@ -1,0 +1,146 @@
+programa ej6P3
+procesos
+  proceso agarrarFlor
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+  fin
+  proceso agarrarPapel
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  proceso agarrarTodo
+  comenzar
+    agarrarFlor
+    agarrarPapel
+  fin
+  proceso juntar(E id:numero)
+  comenzar
+    si(id=1)
+      agarrarFlor
+    sino
+      si(id=2)
+        agarrarTodo
+      sino
+        si(id=3)
+          agarrarPapel
+  fin
+  proceso choque(E av:numero;E ca:numero)
+  comenzar
+    si ((ca=8)|(ca=5)|(ca=15)|(ca=9))
+      si(((ca=8)&(av=4))|((ca=7)&(av=5)))
+        BloquearEsquina(5,8)
+      sino
+        si(((ca=8)&(av=6))|((ca=9)&(av=5)))
+          LiberarEsquina(5,8)
+        sino{(8,5)}
+          si(((ca=6)&(av=8))|((ca=5)&(av=9)))
+            BloquearEsquina(8,5)
+          sino
+            si(((ca=5)&(av=7))|((ca=4)&(av=8)))
+              LiberarEsquina(8,5)
+            sino{(9,15)}
+              si(((ca=15)&(av=8))|((ca=14)&(av=9)))
+                BloquearEsquina(9,15)
+              sino
+                si(((ca=16)&(av=9))|((ca=15)&(av=10)))
+                  LiberarEsquina(9,15) 
+                sino{(15,9)}
+                  si(((ca=9)&(av=16))|((ca=10)&(av=15)))
+                    BloquearEsquina(15,9)
+                  sino
+                    si(((ca=9)&(av=14))|((ca=8)&(av=15)))
+                      LiberarEsquina(15,9)
+  fin
+  proceso hacerRecorrido(E t:numero;E id:numero){POSIBLE CHOQUE (5,8)-(8,5)-(9,15)-(15,9)}
+  variables
+    av,ca:numero
+  comenzar
+    repetir 4
+      repetir t
+        juntar(id)
+        av:=PosAv
+        ca:=PosCa
+        choque(av,ca)
+        mover
+      derecha
+  fin
+  proceso asignarData
+  comenzar
+    EnviarMensaje(1,r1)
+    EnviarMensaje(6,r1)
+    EnviarMensaje(2,r2)
+    EnviarMensaje(10,r2)
+    EnviarMensaje(3,r3)
+    EnviarMensaje(7,r3)
+  fin
+  proceso recorrerCalle(E id:numero)
+  comenzar
+    si(id=1)
+      mientras(HayFlorEnLaBolsa & ~(PosAv=100))
+        depositarFlor
+        mover
+    sino
+      si(id=2)
+        mientras(HayFlorEnLaBolsa & HayPapelEnLaBolsa & ~(PosAv=100))
+          depositarFlor
+          depositarPapel
+          mover
+      sino
+        si(id=3)
+          mientras(HayPapelEnLaBolsa & (~(PosAv=100)))
+            depositarPapel
+            mover
+  fin
+areas
+  ciudad:AreaC(1,1,100,100)
+robots
+  robot tipo1
+  variables
+    id,tam,c:numero
+  comenzar
+    RecibirMensaje(id,rF)
+    RecibirMensaje(tam,rF)
+    hacerRecorrido(tam,id)
+    EnviarMensaje(id,rF)
+    RecibirMensaje(c,rF)
+    Pos(1,c)
+    derecha
+    recorrerCalle(id)
+  fin
+  robot fisca
+  variables
+    c,id:numero
+  comenzar
+    c:=20
+    asignarData
+    repetir 3
+      RecibirMensaje(id,*)
+      si(id=1)
+        EnviarMensaje(c,r1)
+        c:=c+1
+      sino
+        si(id=2)
+          EnviarMensaje(c,r2)
+          c:=c+1
+        sino
+          si(id=3)
+            EnviarMensaje(c,r3)
+            c:=c+1
+  fin
+variables
+  r1:tipo1
+  r2:tipo1
+  r3:tipo1
+  rF:fisca
+comenzar
+  AsignarArea(rF,ciudad)
+  AsignarArea(r1,ciudad)
+  AsignarArea(r2,ciudad)
+  AsignarArea(r3,ciudad)
+  Iniciar(rF,99,99)
+  Iniciar(r1,2,2)
+  Iniciar(r2,5,5)
+  Iniciar(r3,9,9)
+fin
