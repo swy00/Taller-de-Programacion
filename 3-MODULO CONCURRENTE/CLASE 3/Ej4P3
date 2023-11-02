@@ -33,25 +33,28 @@ robots
   variables
     id:numero
     av,ca:numero
+    end:boolean
   comenzar
     av:=PosAv
     ca:=PosCa
+    end:=V
     RecibirMensaje(id,rC)
-    BloquearEsquina(10,10)
-    Pos(10,10)
-    mientras(HayFlorEnLaEsquina)
-      tomarFlor
-      BloquearEsquina(11,11)
-      Pos(11,11)
-      LiberarEsquina(10,10)
-      si(HayFlorEnLaBolsa)
-        depositarFlor
-      Pos(av,ca)
-      LiberarEsquina(11,11)
+    mientras(end)
       BloquearEsquina(10,10)
       Pos(10,10)
-    Pos(av,ca)
-    LiberarEsquina(10,10)
+      si(HayFlorEnLaEsquina)
+        tomarFlor
+        BloquearEsquina(11,11)
+        Pos(11,11)
+        LiberarEsquina(10,10)
+        si(HayFlorEnLaBolsa)
+          depositarFlor
+        Pos(av,ca)
+        LiberarEsquina(11,11)
+      sino
+        end:=F
+        Pos(av,ca)
+        LiberarEsquina(10,10)
     EnviarMensaje(id,rC)
   fin
 variables
