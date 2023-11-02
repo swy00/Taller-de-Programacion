@@ -1,0 +1,120 @@
+programa ej3P3
+procesos
+  proceso enumerarRobots
+  comenzar
+    EnviarMensaje(1,r1)
+    EnviarMensaje(2,r2)
+    EnviarMensaje(3,r3)
+    EnviarMensaje(4,r4)
+  fin
+  proceso enviarEsquinaARobots(E rA:numero;E rC:numero)
+  comenzar
+    EnviarMensaje(rA,r1)
+    EnviarMensaje(rC,r1)
+    EnviarMensaje(rA,r2)
+    EnviarMensaje(rC,r2)
+    EnviarMensaje(rA,r3)
+    EnviarMensaje(rC,r3)
+    EnviarMensaje(rA,r4)
+    EnviarMensaje(rC,r4)
+  fin
+  proceso procesarEsquina(E rA:numero;E rC:numero;ES cantFlor:numero)
+  variables
+    av,ca:numero
+  comenzar
+    av:=PosAv
+    ca:=PosCa
+    BloquearEsquina(rA,rC)
+    Pos(rA,rC)
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantFlor:=cantFlor+1
+      Pos(av,ca)
+      LiberarEsquina(rA,rC)
+      BloquearEsquina(rA,rC)
+      Pos(rA,rC)
+    Pos(av,ca)
+    LiberarEsquina(rA,rC)
+  fin
+  proceso actualizarMaximo(E id:numero;E cantFlor:numero;ES maxFlor:numero;ES maxId:numero)
+  comenzar
+    si(cantFlor>=maxFlor)
+      maxFlor:=cantFlor
+      maxId:=id
+  fin
+  proceso encontrarGanador(ES maxId:numero)
+  variables
+    cantFlor,maxFlor,id:numero
+  comenzar
+    cantFlor:=0
+    repetir 4
+      RecibirMensaje(id,*)
+      si(id=1)
+        RecibirMensaje(cantFlor,r1)
+      sino
+        si(id=2)
+          RecibirMensaje(cantFlor,r2)
+        sino
+          si(id=3)
+            RecibirMensaje(cantFlor,r3)
+          sino
+            si(id=4)
+              RecibirMensaje(cantFlor,r4)
+      actualizarMaximo(id,cantFlor,maxFlor,maxId)
+  fin
+areas
+  areaTrabajo:AreaPC(2,2,10,10)
+  areaJ:AreaP(1,1,1,1)
+  areaR1:AreaP(2,1,2,1)
+  areaR2:AreaP(3,1,3,1)
+  areaR3:AreaP(4,1,4,1)
+  areaR4:AreaP(5,1,5,1)
+robots  
+  robot tipo1
+  variables
+    id:numero
+    rA,rC:numero
+    cantFlor:numero
+  comenzar
+    RecibirMensaje(id,rJ)
+    RecibirMensaje(rA,rJ)
+    RecibirMensaje(rC,rJ)
+    cantFlor:=0
+    procesarEsquina(rA,rC,cantFlor)
+    EnviarMensaje(id,rJ)
+    EnviarMensaje(cantFlor,rJ)
+  fin
+  robot jefe
+  variables
+    id,ganador:numero
+    rA,rC:numero
+  comenzar 
+    enumerarRobots{les manda ID a cada uno}
+    Random(rA,2,10)
+    Random(rC,2,10)
+    enviarEsquinaARobots(rA,rC)
+    encontrarGanador(ganador)
+    Informar('ElRobotQueMasFloresAgarroFue',ganador)
+  fin
+variables
+  rJ:jefe
+  r1:tipo1
+  r2:tipo1
+  r3:tipo1
+  r4:tipo1
+comenzar  
+  AsignarArea(rJ,areaJ)
+  AsignarArea(r1,areaTrabajo)
+  AsignarArea(r1,areaR1)
+  AsignarArea(r2,areaTrabajo)
+  AsignarArea(r2,areaR2)
+  AsignarArea(r3,areaTrabajo)
+  AsignarArea(r3,areaR3)
+  AsignarArea(r4,areaTrabajo)
+  AsignarArea(r4,areaR4)
+  Iniciar(rJ,1,1)
+  Iniciar(r1,2,1)
+  Iniciar(r2,3,1)
+  Iniciar(r3,4,1)
+  Iniciar(r4,5,1)
+fin
