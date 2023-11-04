@@ -1,0 +1,164 @@
+BUSQUEDA DE MENOR
+
+-- DEVUELVE EL VALOR ---
+Programa arbolesEnteros;
+Type
+  arbol = ^nodo;
+  nodo = record
+          dato: integer;
+          HI: arbol;
+          HD: arbol;
+         end;
+Var
+-- FORMA NO ITERATIVA --
+function minimo (a:arbol): integer; 
+
+begin
+  if (a^.HI = nil) then 
+     minimo:= a^.dato
+
+  else mínimo:= mínimo (a^.HI);
+end;
+-- FORMA ITERATIVA --
+function minimo (a:arbol): integer; 
+
+begin
+  while (a^.HI <> nil) do 
+     a:= a^.HI;
+  minimo:= a^.dato
+end;
+
+-------------------------------
+ a:arbol; min:integer;
+Begin
+ cargarArbol(a); 
+ if (a <> nil) then
+   min:= minimo(a);
+   write (min);
+End.
+
+
+
+
+
+
+-- DEVUELVE EL NODO QUE CONTIENE EL MINIMO --
+Programa arbolesEnteros;
+Type
+  arbol = ^nodo;
+  nodo = record
+          dato: integer;
+          HI: arbol;
+          HD: arbol;
+         end;
+-- FORMA NO ITERATIVA --
+function minimoNodo (a:arbol): arbol; 
+
+Begin
+  if (a = nil) then minimoNodo:= nil
+  else if (a^.HI = nil) then 
+        minimoNodo:= a;
+  else mínimoNodo:= mínimoNodo (a^.HI);
+end;
+
+-- FORMA ITERATIVA --
+function minimoNodo (a:arbol): arbol; 
+Begin
+  if (a = nil) then 
+	minimoNodo:= nil
+  else 
+   while (a^.HI <> nil) do 
+     a:= a^.HI; 
+   minimoNodo:= a
+ end;
+
+Var
+ a:arbol; min:arbol;
+Begin
+ cargarArbol(a); 
+ min:= minimoNodo(a);
+   if (min <> nil) then   
+	write (min^.dato);
+End.
+
+
+BUSQUEDA MAYOR
+
+DEVUELVE EL VALOR
+
+Programa arbolesEnteros;
+Type
+  arbol = ^nodo;
+  nodo = record
+          dato: integer;
+          HI: arbol;
+          HD: arbol;
+         end;
+
+function maximo (a:arbol): integer; 
+
+begin
+  if (a^.HD = nil) then 
+     maximo:= a^.dato
+
+  else maximo:= maximo (a^.HD);
+end;
+-- ITERATIVO --
+function maximo (a:arbol): integer; 
+
+begin
+  while (a^.HD <> nil) do 
+     a:= a^.HD;
+  maximo:= a^.dato;
+end;
+
+
+Var
+ a:arbol; max:integer;
+Begin
+ cargarArbol(a); 
+ if (a <> nil) then
+   max:= maximo(a);
+   write (max);
+End.
+
+
+DEVUELVE EL NODO CON EL MAXIMO
+
+Programa arbolesEnteros;
+Type
+  arbol = ^nodo;
+  nodo = record
+          dato: integer;
+          HI: arbol;
+          HD: arbol;
+         end;
+function maximoNodo (a:arbol): arbol; 
+
+Begin
+  if (a = nil) then maximoNodo:= nil
+  else if (a^.HD = nil) then 
+        maximoNodo:= a
+  else maximoNodo:= maximoNodo (a^.HD);
+end;
+
+-- ITERATIVO --
+function maximoNodo (a:arbol): arbol; 
+Begin
+  if (a = nil) then maximoNodo:= nil
+  else 
+   while (a^.HD <> nil) do 
+     a:= a^.HD; 
+   maximoNodo:= a;
+ end;
+
+
+
+Var
+ a:arbol; max:arbol;
+Begin
+ cargarArbol(a); 
+ max:= maximoNodo(a);
+   if (max <> nil) then   write (max^.dato);
+End.
+

@@ -1,0 +1,57 @@
+programa ej1P2
+procesos
+  proceso LimpiarAv(ES CantidadFlores: numero)
+  comenzar
+    repetir 9
+      mientras(HayFlorEnLaEsquina)
+        tomarFlor
+        CantidadFlores:= CantidadFlores + 1        
+      mover
+  fin
+areas
+  AreaPrivada1: AreaP(1,1,1,10)
+  AreaPrivada2: AreaP(2,11,2,20)
+  AreaPrivada3: AreaP(5, 5, 5, 5)
+robots
+  robot tipo1 {el trabajador}
+  variables
+    identificador: numero
+    cant: numero
+  comenzar    
+    RecibirMensaje(identificador, robotJefe)
+    LimpiarAv(cant)
+    EnviarMensaje(identificador, robotJefe)
+    EnviarMensaje(cant, robotJefe)
+  fin
+  robot JEFE {JEFE}
+  variables
+    identificador: numero
+    diferenciaFlores: numero
+    cantFlores1: numero
+    cantFlores2: numero
+  comenzar
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    repetir 2
+      RecibirMensaje(identificador, *)
+      si (identificador = 1)
+        RecibirMensaje(cantFlores1, robot1)
+      sino
+        RecibirMensaje(cantFlores2, robot2)
+    si (cantFlores1 >= cantFlores2)       {resta}
+      Informar('Diferencia', cantFlores1 - cantFlores2)
+    sino
+      Informar('Diferencia', cantFlores2 - cantFlores1)
+  fin
+variables
+  robot1: tipo1
+  robot2: tipo1
+  robotJefe: JEFE
+comenzar
+  AsignarArea(robot1, AreaPrivada1)
+  AsignarArea(robot2, AreaPrivada2)
+  AsignarArea(robotJefe, AreaPrivada3)
+  Iniciar(robot1, 1, 1)
+  Iniciar(robot2, 2, 11)
+  Iniciar(robotJefe, 5, 5) 
+fin

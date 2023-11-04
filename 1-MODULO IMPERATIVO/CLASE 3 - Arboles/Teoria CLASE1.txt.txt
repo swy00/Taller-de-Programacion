@@ -1,0 +1,66 @@
+El nodo principal del árbol se denomina raíz y 
+los nodos que no tienen hijos se denominan hojas del árbol
+RAIZ ---> NODO ---> HOJA, raiz es el comienzo y el nodo es el que 
+va a tener hojas/otros nodos
+
+Todo árbol es una estructura jerárquica
+Todo árbol es una estructura dinámica
+Todo árbol es una estructura homogénea
+Para crear un árbol siempre se empieza por la raíz
+Un árbol vacío se representa con el valor nil
+Un nuevo dato siempre se inserta como una hoja
+
+Programa arboles;
+Type
+  arbol = ^nodo;
+  tipo = ...;
+
+  nodo = record
+          dato: tipo;
+          HI: arbol;
+          HD: arbol;
+         end;
+
+Var
+ a:arbol;
+Begin
+ ….
+End.
+
+Programa arbolesEnteros;
+Type
+  arbol = ^nodo;
+  nodo = record
+          dato: integer;
+          HI: arbol;
+          HD: arbol;
+         end;
+
+Var
+ a:arbol;
+Begin
+ ….
+End.
+
+Programa arbolesPersonas;
+Type
+ persona = record
+   nombre:string;
+   dni:integer;
+ end; 
+ arbol = ^nodo;
+ nodo = record
+         dato: persona;
+         HI: arbol;
+         HD: arbol;
+        end;
+Var
+ a:arbol;
+Begin
+ ….
+End.
+
+
+Un árbol binario de búsqueda (ABB) agrega los elementos por sus hojas. 
+Dichos elementos quedan ordenados (todos por el mismo criterio). 
+Esta operación lleva un tiempo de ejecución de O(log n).

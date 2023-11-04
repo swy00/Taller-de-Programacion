@@ -1,0 +1,108 @@
+programa ej1P2
+procesos
+  proceso calcularMax(E identificador:numero;E cantFlores:numero;ES max:numero;ES identMax:numero)
+  comenzar
+    si (cantFlores > max)
+      max:= cantFlores
+      identMax:= identificador
+  fin
+  proceso LimpiarAv(ES cant: numero)
+  comenzar
+    repetir 9
+      mientras(HayFlorEnLaEsquina)
+        tomarFlor
+        cant:= cant + 1      
+      mover
+      mientras(HayFlorEnLaEsquina)
+        tomarFlor
+        cant:= cant + 1
+  fin
+areas
+  AreaPrivada1: AreaP(1,1,1,10)
+  AreaPrivada2: AreaP(2,11,2,20)
+  AreaPrivada3: AreaP(3,21,3,30)
+  AreaPrivada4: AreaP(4,31,4,40)
+  AreaPrivada5: AreaP(5,41,5,50)
+  AreaPrivada6: AreaP(6,51,6,60)
+  AreaJefe: AreaP(5, 5, 5, 5)
+  AreaPrivadaFiscalizador: AreaP(2,1,2,1)
+robots
+  robot tipo1 {el trabajador}
+  variables
+    identificador: numero
+    cant: numero
+  comenzar  
+    cant:=0  
+    RecibirMensaje(identificador, robotJefe)
+    LimpiarAv(cant)
+    EnviarMensaje(identificador, robotFiscal)
+    EnviarMensaje(cant, robotFiscal)
+  fin
+  robot JEFE {JEFE}
+  comenzar
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    EnviarMensaje(3, robot3)
+    EnviarMensaje(4, robot4)
+    EnviarMensaje(5, robot5)
+    EnviarMensaje(6, robot6)
+  fin
+  robot fiscal
+  variables
+    identificador: numero
+    identMax:numero
+    max: numero
+    cantFlores: numero
+  comenzar
+    max:=0
+    cantFlores:=0
+    repetir 6
+      RecibirMensaje(identificador, *)
+      si(identificador = 1)
+        RecibirMensaje(cantFlores, robot1)
+      sino
+        si(identificador =2)
+          RecibirMensaje(cantFlores, robot2)
+        sino
+          si(identificador = 3)
+            RecibirMensaje(cantFlores, robot3)
+          sino
+            si(identificador = 4)
+              RecibirMensaje(cantFlores, robot4)
+            sino
+              si(identificador = 5)
+                RecibirMensaje(cantFlores, robot5)
+              sino
+                si(identificador = 6)
+                  RecibirMensaje(cantFlores, robot6)
+      calcularMax(identificador,cantFlores,max,identMax)
+    Informar('Gano_el_robot_numero',identMax)
+    Informar('El_Robot_Ganador_Obtuvo',max)
+  fin
+variables
+  robot1: tipo1
+  robot2: tipo1
+  robot3: tipo1
+  robot4: tipo1
+  robot5: tipo1
+  robot6: tipo1
+  robotJefe: JEFE
+  robotFiscal: fiscal
+comenzar
+  AsignarArea(robot1, AreaPrivada1)
+  AsignarArea(robot2, AreaPrivada2)
+  AsignarArea(robot3, AreaPrivada3)
+  AsignarArea(robot4, AreaPrivada4)
+  AsignarArea(robot5, AreaPrivada5)
+  AsignarArea(robot6, AreaPrivada6)
+  AsignarArea(robotJefe, AreaJefe)
+  AsignarArea(robotFiscal,AreaPrivadaFiscalizador)
+  Iniciar(robot1, 1, 1)
+  Iniciar(robot2, 2, 11)
+  Iniciar(robot3, 3, 21)
+  Iniciar(robot4, 4, 31)
+  Iniciar(robot5, 5, 41)
+  Iniciar(robot6, 6, 51)
+  Iniciar(robotJefe, 5, 5) 
+  Iniciar(robotFiscal,2,1)
+fin

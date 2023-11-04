@@ -1,0 +1,153 @@
+programa ej2P3
+procesos
+  proceso agarrarFlor(ES cantFlor:numero) 
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantFlor:=cantFlor+1
+  fin
+  proceso agarrarPapel(ES cantPapel:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantPapel:=cantPapel+1
+  fin
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso escalonesPapel2(ES cantPapel:numero;ES tEsc:numero)
+  comenzar
+    repetir tEsc
+      mover
+    izquierda
+    agarrarPapel(cantPapel)
+    repetir tEsc
+      mover
+    derecha
+    tEsc:=tEsc+1
+  fin
+  proceso escalonesPapel(ES cantPapel:numero;ES tEsc:numero)
+  comenzar
+    repetir tEsc
+      mover
+    izquierda
+    agarrarPapel(cantPapel)
+    repetir tEsc
+      mover
+    derecha
+    tEsc:=tEsc-1
+  fin
+  proceso escalonesFlor2(ES cantFlor:numero;ES tEsc:numero)
+  comenzar
+    repetir tEsc
+      mover
+    derecha
+    agarrarFlor(cantFlor)
+    repetir tEsc
+      mover
+    izquierda  
+    tEsc:=tEsc+1
+  fin
+  proceso escalonesFlor(ES cantFlor:numero;ES tEsc:numero)
+  comenzar
+    repetir tEsc
+      mover
+    derecha
+    agarrarFlor(cantFlor)
+    repetir tEsc
+      mover
+    izquierda
+    tEsc:=tEsc-1
+  fin
+areas
+  ciudad:AreaC(1,1,100,100)
+robots
+  robot robotPapel
+  variables
+    tEsc:numero
+    cantPapeles:numero
+    id:numero
+  comenzar
+    RecibirMensaje(id,rJ)
+    tEsc:=5
+    cantPapeles:=0
+    repetir 4
+      escalonesPapel(cantPapeles,tEsc)
+    repetir tEsc
+      mover
+    izquierda
+    BloquearEsquina(16,16)
+    mover
+    EnviarMensaje(id,rJ)
+    repetir 2
+      derecha
+    mover
+    LiberarEsquina(16,16)
+    tEsc:=2
+    repetir 4
+      escalonesPapel2(cantPapeles,tEsc)
+    EnviarMensaje(id,rJ)
+  fin
+  robot robotFlores
+  variables
+    tEsc:numero 
+    cantFlores:numero 
+    id:numero
+  comenzar
+    RecibirMensaje(id,rJ)
+    tEsc:=5
+    cantFlores:=0
+    repetir 4
+      escalonesFlor(cantFlores,tEsc)
+    repetir tEsc
+      mover
+    derecha
+    BloquearEsquina(16,16)
+    mover
+    EnviarMensaje(id,rJ)
+    repetir 2
+      derecha
+    mover
+    LiberarEsquina(16,16)
+    tEsc:=2 
+    repetir 4
+      escalonesFlor2(cantFlores,tEsc) 
+    EnviarMensaje(id,rJ)
+  fin
+  robot jefe
+  variables
+    pos:numero
+    id:numero
+    num:numero
+  comenzar
+    pos:=0
+    EnviarMensaje(1,rF)
+    EnviarMensaje(2,rP)
+    RecibirMensaje(id,*) 
+    si (id=1)
+      num:=1
+      RecibirMensaje(id,rP)
+    sino 
+      num:=2
+      RecibirMensaje(id,rF)
+    repetir 2
+      RecibirMensaje(id,*)
+    si (num=1)
+      Informar('ElRobotDe_Flores_LlegoPrimeroAl_Centro',num)
+    sino
+      Informar('ElRobotDe_Papeles_LLegoPrimeroAlCentro',num)
+  fin
+variables
+  rF:robotFlores
+  rJ:jefe
+  rP:robotPapel
+comenzar
+  AsignarArea(rF,ciudad)
+  AsignarArea(rJ,ciudad)
+  AsignarArea(rP,ciudad)
+  Iniciar(rJ,15,1)
+  Iniciar(rP,31,1)
+  Iniciar(rF,1,1)
+fin

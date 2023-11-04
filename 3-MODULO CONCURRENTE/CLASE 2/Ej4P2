@@ -1,0 +1,118 @@
+programa ej4P2
+procesos
+  proceso limpiarEsquina(ES cant:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      cant:=cant+1
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      cant:=cant+1
+  fin
+  proceso serElegido(E avRet:numero;E caRet:numero)
+  variables
+    av,ca,cant:numero
+  comenzar
+    Random(av,25,75)
+    Random(ca,25,75)
+    Pos(av,ca)
+    cant:=0
+    limpiarEsquina(cant)
+    Pos(avRet,caRet)
+    EnviarMensaje(cant,fiscal)
+  fin
+  proceso esMaximo(ES max:numero;ES idmax:numero;ES num:numero;E cant:numero;E id:numero)
+  comenzar
+    num:=num+cant
+    si(num>max)
+      max:=num
+      idmax:=id
+  fin
+  proceso mensajeYMaximo(E id:numero;E mensaje:numero;ES cant:numero;ES r1:numero;ES r2:numero;ES r3:numero;ES r4:numero;ES max:numero;ES idmax:numero)
+  comenzar
+    si(id<=2)
+      si(id=1)
+        EnviarMensaje(mensaje,rec1)
+        RecibirMensaje(cant,rec1)
+        esMaximo(max,idmax,r1,cant,id)
+      sino
+        EnviarMensaje(mensaje,rec2)
+        RecibirMensaje(cant,rec2)
+        esMaximo(max,idmax,r2,cant,id)
+    sino
+      si(id=3)
+        EnviarMensaje(mensaje,rec3)
+        RecibirMensaje(cant,rec3)
+        esMaximo(max,idmax,r3,cant,id)
+      sino
+        EnviarMensaje(mensaje,rec4)
+        RecibirMensaje(cant,rec4)
+        esMaximo(max,idmax,r4,cant,id)
+  fin
+areas
+  centro:AreaC(25,25,75,75)
+  zonaFiscal:AreaP(1,1,1,1)
+  zonaEspera:AreaC(25,1,40,1)
+robots
+  robot Fiscal
+  variables
+    id,r1,r2,r3,r4,max,cant,idmax:numero
+  comenzar
+    r1:=0
+    r2:=0
+    r3:=0
+    r4:=0
+    max:=-1
+    repetir 10
+      Random(id,1,4)
+      mensajeYMaximo(id,1,cant,r1,r2,r3,r4,max,idmax)
+    id:=1
+    si(idmax<=2)
+      EnviarMensaje(0,rec3)
+      EnviarMensaje(0,rec4)
+      si(idmax=1)
+        EnviarMensaje(2,rec1)
+        EnviarMensaje(0,rec2)
+      sino
+        EnviarMensaje(2,rec2)
+        EnviarMensaje(0,rec1)
+    sino
+      EnviarMensaje(0,rec1)
+      EnviarMensaje(0,rec2)
+      si(idmax=3)
+        EnviarMensaje(2,rec3)
+        EnviarMensaje(0,rec4)
+      sino
+        EnviarMensaje(2,rec4)
+        EnviarMensaje(0,rec3)
+  fin
+  robot Recolector
+  variables
+    msj:numero
+  comenzar
+    RecibirMensaje(msj,fiscal)
+    mientras(msj=1)
+      serElegido(PosAv,PosCa)
+      RecibirMensaje(msj,fiscal)
+    si(msj=2)
+      Pos(50,50)
+  fin
+variables
+  fiscal:Fiscal
+  rec1,rec2,rec3,rec4:Recolector
+comenzar
+  AsignarArea(fiscal,zonaFiscal)
+  AsignarArea(rec1,centro)
+  AsignarArea(rec2,centro)
+  AsignarArea(rec3,centro)
+  AsignarArea(rec4,centro)
+  AsignarArea(rec1,zonaEspera)
+  AsignarArea(rec2,zonaEspera)
+  AsignarArea(rec3,zonaEspera)
+  AsignarArea(rec4,zonaEspera)
+  Iniciar(rec1,25,1)
+  Iniciar(rec2,30,1)
+  Iniciar(rec3,35,1)
+  Iniciar(rec4,40,1)
+  Iniciar(fiscal,1,1)
+fin

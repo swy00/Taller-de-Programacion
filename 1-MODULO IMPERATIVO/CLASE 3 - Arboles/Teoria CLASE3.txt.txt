@@ -1,0 +1,54 @@
+Programa arboles;
+Type
+  arbol = ^nodo;
+  nodo = record
+          dato: integer;
+          HI: arbol;
+          HD: arbol;
+         end;
+
+Procedure enOrden ( a : arbol );
+begin
+   if ( a <> nil ) then begin
+    enOrden (a^.HI);
+    write (a^.dato); //o cualquier otra acción
+    enOrden (a^.HD);
+   end;
+end;
+
+Var
+ a:arbol;  num:integer;
+Begin
+  a:= nil; 
+ read (num); 
+  while (num <> 50) do
+   begin
+    agregar (a,num); 
+    read (num);
+   end;
+  recorrido_enOrden(a);
+End.
+
+
+OTRA FORMAS
+
+Procedure preOrden (a:arbol);
+begin
+   if ( a <> nil ) then 
+     begin
+      write (a^.dato);
+      preOrden (a^.HI);
+      preOrden (a^.HD);
+   end;
+end;
+
+
+Procedure postOrden (a:arbol);
+begin
+   if ( a <> nil ) then 
+     begin
+      postOrden (a^.HI);
+      postOrden (a^.HD);
+      write (a^.dato);
+   end;
+end;

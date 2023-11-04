@@ -1,0 +1,191 @@
+programa ej6P3
+procesos
+  proceso agarrarFlor
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+  fin
+  proceso agarrarPapel
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  proceso agarrarTodo
+  comenzar
+    agarrarFlor
+    agarrarPapel
+  fin
+  
+  proceso asignarData
+  comenzar
+    EnviarMensaje(1,r1)
+    EnviarMensaje(2,r2)
+    EnviarMensaje(3,r3)
+  fin
+  proceso recorrerCalle(E id:numero)
+  comenzar
+    si(id=1)
+      mientras(HayFlorEnLaBolsa & ~(PosAv=100))
+        depositarFlor
+        mover
+    sino
+      si(id=2)
+        mientras(HayFlorEnLaBolsa & HayPapelEnLaBolsa & ~(PosAv=100))
+          depositarFlor
+          depositarPapel
+          mover
+      sino
+        si(id=3)
+          mientras(HayPapelEnLaBolsa & (~(PosAv=100)))
+            depositarPapel
+            mover
+  fin
+  proceso ladoFlor(E pasos:numero)
+  comenzar
+    repetir pasos
+      agarrarFlor
+      mover
+    agarrarFlor
+  fin
+  proceso ladoFlorPapel(E pasos:numero)
+  comenzar
+    repetir pasos
+      agarrarTodo
+      mover
+    agarrarTodo
+  fin
+  proceso ladoPapel(E pasos:numero)
+  comenzar
+    repetir pasos
+      agarrarPapel
+      mover
+    agarrarPapel
+  fin
+  proceso esquinaChoque(E av:numero;E ca:numero;E id:numero)
+  comenzar
+    BloquearEsquina(av,ca)
+    mover
+    si (id=1)
+      agarrarFlor
+    sino
+      si(id=2)
+        agarrarTodo
+      sino
+        si(id=3)
+          agarrarPapel
+    mover
+    LiberarEsquina(av,ca)
+  fin
+areas
+  ciudad:AreaC(1,1,100,100)
+robots
+  robot cuadrado6
+  variables
+    id,c:numero
+  comenzar
+    RecibirMensaje(id,rF)
+    ladoFlor(6)
+    derecha
+    ladoFlor(2)
+    esquinaChoque(5,8,id)
+    ladoFlor(2)
+    derecha
+    ladoFlor(2)
+    esquinaChoque(8,5,id)
+    ladoFlor(2)
+    derecha
+    ladoFlor(6)
+    EnviarMensaje(id,rF)
+    RecibirMensaje(c,rF)
+    Pos(1,c)
+    repetir 2
+      derecha
+    recorrerCalle(id)
+  fin
+  
+  robot cuadrado10
+  variables
+    id,c:numero
+  comenzar
+    RecibirMensaje(id,rF)
+    ladoFlorPapel(2)
+    esquinaChoque(5,8,id)
+    ladoFlorPapel(6)
+    derecha
+    ladoFlorPapel(3)
+    esquinaChoque(9,15,id)
+    ladoFlorPapel(5)
+    derecha
+    ladoFlorPapel(5)
+    esquinaChoque(15,9,id)
+    ladoFlorPapel(3)
+    derecha
+    ladoFlorPapel(6)
+    esquinaChoque(8,5,id)
+    ladoFlorPapel(2)
+    EnviarMensaje(id,rF)
+    RecibirMensaje(c,rF)
+    Pos(1,c)
+    repetir 2
+      derecha
+    recorrerCalle(id)
+  fin
+  robot cuadrado7
+  variables
+    id,c:numero
+  comenzar
+    RecibirMensaje(id,rF)
+    ladoPapel(5)
+    esquinaChoque(9,15,id)
+    derecha
+    ladoPapel(7)
+    derecha
+    ladoPapel(7)
+    derecha
+    esquinaChoque(15,9,id)
+    ladoPapel(5)
+    EnviarMensaje(id,rF)
+    RecibirMensaje(c,rF)
+    Pos(1,c)
+    repetir 2
+      derecha
+    recorrerCalle(id)
+  fin
+  robot fisca
+  variables
+    c,id:numero
+  comenzar
+    c:=20
+    asignarData
+    repetir 3
+      RecibirMensaje(id,*)
+      si(id=1)
+        EnviarMensaje(c,r1)
+        c:=c+1
+      sino
+        si(id=2)
+          EnviarMensaje(c,r2)
+          c:=c+1
+        sino
+          si(id=3)
+            EnviarMensaje(c,r3)
+            c:=c+1
+  fin
+variables
+  r1:cuadrado6
+  r2:cuadrado10
+  r3:cuadrado7
+  rF:fisca
+comenzar
+  AsignarArea(rF,ciudad)
+  AsignarArea(r1,ciudad)
+  AsignarArea(r2,ciudad)
+  AsignarArea(r3,ciudad)
+  Iniciar(rF,1,1)
+  Iniciar(r1,2,2)
+  Iniciar(r2,5,5)
+  Iniciar(r3,9,9)
+fin
+
+
+

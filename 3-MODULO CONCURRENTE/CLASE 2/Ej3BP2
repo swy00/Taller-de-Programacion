@@ -1,0 +1,105 @@
+programa ej3P2
+procesos
+  proceso agarrarPapeles(ES cantPapeles:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantPapeles:=cantPapeles+1
+  fin
+  proceso agarrarFlores(ES cantFlores:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantFlores:=cantFlores+1
+  fin
+
+areas
+  areaA:AreaPC(1,1,100,1)
+  areaB:AreaPC(1,5,100,5)
+  
+robots
+  robot tipoA1
+  variables
+    cantPapeles:numero
+    listo:boolean
+  comenzar
+    derecha
+    cantPapeles:=0
+    repetir 5
+      listo:=F
+      repetir 9
+        agarrarPapeles(cantPapeles)
+        mover
+      agarrarPapeles(cantPapeles)
+      EnviarMensaje(cantPapeles,robotA2)
+      RecibirMensaje(cantPapeles,robotA2)
+      si ~(PosAv=90)
+        Pos(PosAv+11,1)
+  fin
+  robot tipoB1
+  variables
+    cantFlores:numero
+    listo:boolean
+  comenzar
+    derecha
+    cantFlores:=0
+    repetir 5
+      listo:=F
+      repetir 9
+        agarrarFlores(cantFlores)
+        mover
+      agarrarFlores(cantFlores)
+      EnviarMensaje(cantFlores,robotB2)
+      RecibirMensaje(listo,robotB2)
+      si ~(PosAv = 90)
+        Pos(PosAv+11,5)
+  fin
+  robot tipoA2
+  variables
+    cantElementosA:numero
+  comenzar
+    derecha
+    cantElementosA:=0
+    repetir 5
+      RecibirMensaje(cantElementosA,robotA1)
+      repetir 9
+        agarrarPapeles(cantElementosA)
+        mover
+      agarrarPapeles(cantElementosA)
+      EnviarMensaje(cantElementosA,robotA1)
+      si (PosAv<>100)
+        Pos(PosAv+11,1) 
+    Informar(cantElementosA)  
+  fin
+  robot tipoB2
+  variables
+    cantElementosB:numero
+  comenzar
+    derecha
+    cantElementosB:=0
+    repetir 5
+      RecibirMensaje(cantElementosB,robotB1)
+      repetir 9
+        agarrarFlores(cantElementosB)
+        mover
+      agarrarFlores(cantElementosB)
+      EnviarMensaje(cantElementosB,robotB1)
+      si (PosAv<>100)
+        Pos(PosAv+11,5)  
+    Informar(cantElementosB) 
+  fin
+variables
+  robotA1:tipoA1
+  robotA2:tipoA2
+  robotB1:tipoB1
+  robotB2:tipoB2
+comenzar
+  AsignarArea(robotA1,areaA)
+  AsignarArea(robotA2,areaA)
+  AsignarArea(robotB1,areaB)
+  AsignarArea(robotB2,areaB)
+  Iniciar(robotA1,1,1)
+  Iniciar(robotA2,11,1)
+  Iniciar(robotB1,1,5)
+  Iniciar(robotB2,11,5)
+fin

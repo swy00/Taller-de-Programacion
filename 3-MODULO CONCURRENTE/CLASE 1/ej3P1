@@ -1,0 +1,68 @@
+programa ej3p1
+procesos 
+  proceso contarFloresyPapeles(ES flores:numero;ES papeles:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      papeles:=papeles+1
+    si ~(papeles =0)
+      repetir papeles
+        depositarPapel
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      flores:=flores+1
+    si ~(flores=0)
+      repetir flores
+        depositarFlor
+  fin
+  proceso izquierda
+  comenzar  
+    repetir 3
+      derecha
+  fin
+  proceso generarEscalera(ES contador:numero)
+  variables
+    e:numero
+    flores:numero
+    papeles:numero
+    contador:numero
+  comenzar
+    e:=1
+    contador:=0
+    repetir 4
+      flores:=0
+      papeles:=0
+      repetir e
+        mover
+      contarFloresyPapeles(flores,papeles)
+      si (papeles = (flores + 1))
+        contador:=contador+1
+      derecha
+      e:=e+1  
+      repetir e
+        mover
+      izquierda
+  fin
+areas
+  ciudad:AreaC(11,5,37,25)
+robots
+  robot tipo1
+  variables
+    contador:numero
+  comenzar 
+    contador:=0 
+    generarEscalera(contador)
+    Informar(contador)
+  fin
+variables
+  robot1:tipo1
+  robot2:tipo1
+  robot3:tipo1
+comenzar
+  AsignarArea(robot1,ciudad)
+  AsignarArea(robot2,ciudad)
+  AsignarArea(robot3,ciudad)
+  Iniciar(robot1,12,14)
+  Iniciar(robot2,17,10)
+  Iniciar(robot3,22,6)
+fin
