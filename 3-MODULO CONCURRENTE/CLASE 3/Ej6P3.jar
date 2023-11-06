@@ -15,74 +15,12 @@ procesos
     agarrarFlor
     agarrarPapel
   fin
-<<<<<<< HEAD
-  proceso juntar(E id:numero)
-  comenzar
-    si(id=1)
-      agarrarFlor
-    sino
-      si(id=2)
-        agarrarTodo
-      sino
-        si(id=3)
-          agarrarPapel
-  fin
-  proceso choque(E av:numero;E ca:numero)
-  comenzar
-    si ((ca=8)|(ca=5)|(ca=15)|(ca=9))
-      si(((ca=8)&(av=4))|((ca=7)&(av=5)))
-        BloquearEsquina(5,8)
-      sino
-        si(((ca=8)&(av=6))|((ca=9)&(av=5)))
-          LiberarEsquina(5,8)
-        sino{(8,5)}
-          si(((ca=6)&(av=8))|((ca=5)&(av=9)))
-            BloquearEsquina(8,5)
-          sino
-            si(((ca=5)&(av=7))|((ca=4)&(av=8)))
-              LiberarEsquina(8,5)
-            sino{(9,15)}
-              si(((ca=15)&(av=8))|((ca=14)&(av=9)))
-                BloquearEsquina(9,15)
-              sino
-                si(((ca=16)&(av=9))|((ca=15)&(av=10)))
-                  LiberarEsquina(9,15) 
-                sino{(15,9)}
-                  si(((ca=9)&(av=16))|((ca=10)&(av=15)))
-                    BloquearEsquina(15,9)
-                  sino
-                    si(((ca=9)&(av=14))|((ca=8)&(av=15)))
-                      LiberarEsquina(15,9)
-  fin
-  proceso hacerRecorrido(E t:numero;E id:numero){POSIBLE CHOQUE (5,8)-(8,5)-(9,15)-(15,9)}
-  variables
-    av,ca:numero
-  comenzar
-    repetir 4
-      repetir t
-        juntar(id)
-        av:=PosAv
-        ca:=PosCa
-        choque(av,ca)
-        mover
-      derecha
-  fin
-  proceso asignarData
-  comenzar
-    EnviarMensaje(1,r1)
-    EnviarMensaje(6,r1)
-    EnviarMensaje(2,r2)
-    EnviarMensaje(10,r2)
-    EnviarMensaje(3,r3)
-    EnviarMensaje(7,r3)
-=======
-  
+
   proceso asignarData
   comenzar
     EnviarMensaje(1,r1)
     EnviarMensaje(2,r2)
     EnviarMensaje(3,r3)
->>>>>>> 7efc5217796e3a4a35b74cc0465cd4564e4bfd8d
   fin
   proceso recorrerCalle(E id:numero)
   comenzar
@@ -102,22 +40,6 @@ procesos
             depositarPapel
             mover
   fin
-<<<<<<< HEAD
-areas
-  ciudad:AreaC(1,1,100,100)
-robots
-  robot tipo1
-  variables
-    id,tam,c:numero
-  comenzar
-    RecibirMensaje(id,rF)
-    RecibirMensaje(tam,rF)
-    hacerRecorrido(tam,id)
-    EnviarMensaje(id,rF)
-    RecibirMensaje(c,rF)
-    Pos(1,c)
-    derecha
-=======
   proceso ladoFlor(E pasos:numero)
   comenzar
     repetir pasos
@@ -180,7 +102,7 @@ robots
       derecha
     recorrerCalle(id)
   fin
-  
+
   robot cuadrado10
   variables
     id,c:numero
@@ -227,7 +149,6 @@ robots
     Pos(1,c)
     repetir 2
       derecha
->>>>>>> 7efc5217796e3a4a35b74cc0465cd4564e4bfd8d
     recorrerCalle(id)
   fin
   robot fisca
@@ -251,33 +172,18 @@ robots
             c:=c+1
   fin
 variables
-<<<<<<< HEAD
-  r1:tipo1
-  r2:tipo1
-  r3:tipo1
-=======
   r1:cuadrado6
   r2:cuadrado10
   r3:cuadrado7
->>>>>>> 7efc5217796e3a4a35b74cc0465cd4564e4bfd8d
   rF:fisca
 comenzar
   AsignarArea(rF,ciudad)
   AsignarArea(r1,ciudad)
   AsignarArea(r2,ciudad)
   AsignarArea(r3,ciudad)
-<<<<<<< HEAD
-  Iniciar(rF,99,99)
-=======
   Iniciar(rF,1,1)
->>>>>>> 7efc5217796e3a4a35b74cc0465cd4564e4bfd8d
   Iniciar(r1,2,2)
   Iniciar(r2,5,5)
   Iniciar(r3,9,9)
 fin
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 7efc5217796e3a4a35b74cc0465cd4564e4bfd8d
