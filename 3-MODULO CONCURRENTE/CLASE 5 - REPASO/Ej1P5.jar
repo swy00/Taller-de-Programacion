@@ -1,0 +1,127 @@
+programa ej1P5
+procesos
+  proceso juntarPapel(ES cP:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cP:=cP+1
+  fin
+  proceso juntarFlor(ES cF:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cF:=cF+1
+  fin
+  proceso recorrerFlores(E pasos:numero;ES cF:numero)
+  comenzar
+    repetir pasos
+      juntarFlor(cF)
+      mover
+  fin
+  proceso recorrerPapeles(E pasos:numero;ES cP:numero)
+  comenzar
+    repetir pasos  
+      juntarPapel(cP)
+      mover
+  fin
+areas
+  areaR1:AreaP(2,1,2,100)
+  areaR2:AreaP(3,1,3,100)
+  areaA1:AreaP(1,98,100,98)
+  areaA2:AreaP(1,99,100,99)
+  areaF:AreaP(1,1,1,1)
+robots
+  robot rojo
+  variables
+    id,av,cantF:numero
+  comenzar  
+    cantF:=0
+    RecibirMensaje(id,rF)
+    recorrerFlores(96,cantF)
+    av:=PosAv
+    BloquearEsquina(av,98)
+    mover
+    juntarFlor(cantF)
+    BloquearEsquina(av,99)
+    mover
+    LiberarEsquina(av,98)
+    juntarFlor(cantF)
+    mover
+    LiberarEsquina(av,99)
+    juntarFlor(cantF)
+    EnviarMensaje(id,rF)
+    EnviarMensaje(cantF,rF)
+  fin
+  robot azul
+  variables
+    id,ca,cantP:numero
+  comenzar
+    RecibirMensaje(id,rF)
+    derecha
+    cantP:=0
+    ca:=PosCa
+    juntarPapel(cantP)
+    BloquearEsquina(2,ca)
+    mover
+    juntarPapel(cantP)
+    BloquearEsquina(3,ca)
+    mover
+    LiberarEsquina(2,ca)
+    juntarPapel(cantP)
+    mover
+    LiberarEsquina(3,ca)
+    recorrerPapeles(96,cantP)
+    EnviarMensaje(id,rF)
+    EnviarMensaje(cantP,rF)
+  fin
+  robot fisca
+  variables
+    elemR,elemA,id:numero
+    totalR,totalA:numero
+  comenzar
+    totalR:=0
+    totalA:=0
+    EnviarMensaje(1,rR1)
+    EnviarMensaje(2,rR2)
+    EnviarMensaje(3,rA1)
+    EnviarMensaje(4,rA2)
+    repetir 4
+      RecibirMensaje(id,*)
+      si(id=1)
+        RecibirMensaje(elemR,rR1)
+        totalR:=totalR+elemR
+      sino
+        si(id=2)
+          RecibirMensaje(elemR,rR2)
+          totalR:=totalR+elemR
+        sino
+          si(id=3)
+            RecibirMensaje(elemA,rA1)
+            totalA:=totalA+elemA
+          sino
+            si(id=4)
+              RecibirMensaje(elemA,rA2)
+              totalA:=totalA+elemA
+    si (totalA < totalR)
+      Informar('ElEquipo_Rojo_JuntoMas',totalR)
+    sino
+      Informar('ElEquipo_Azul_JuntoMas',totalA)
+  fin
+variables
+  rR1:rojo
+  rR2:rojo
+  rA1:azul
+  rA2:azul
+  rF:fisca
+comenzar
+  AsignarArea(rR1,areaR1)
+  AsignarArea(rR2,areaR2)
+  AsignarArea(rA1,areaA1)
+  AsignarArea(rA2,areaA2)
+  AsignarArea(rF,areaF)
+  Iniciar(rR1,2,1)
+  Iniciar(rR2,3,1)
+  Iniciar(rA1,1,98)
+  Iniciar(rA2,1,99)
+  Iniciar(rF,1,1)
+fin
