@@ -1,0 +1,82 @@
+programa ej5P5
+procesos
+  proceso enviarIds
+  comenzar
+    EnviarMensaje(1,rC1)
+    EnviarMensaje(2,rC2)
+    EnviarMensaje(3,rC3)
+  fin
+areas
+  area1:AreaP(10,1,10,1)
+  area2:AreaP(11,1,11,1)
+  area3:AreaP(12,1,12,1)
+  areaS:AreaP(13,1,13,1)
+  areaD:AreaC(100,1,100,1)
+robots
+  robot cliente
+  variables
+    aI,cI,id,cantP:numero
+  comenzar
+    aI:=PosAv
+    cI:=PosCa
+    RecibirMensaje(id,rS)
+    repetir 4
+      EnviarMensaje(id,rS)
+      RecibirMensaje(cantP,rS)
+      repetir cantP
+        BloquearEsquina(100,1)
+        Pos(100,1)
+        tomarPapel
+        Pos(aI,cI)
+        LiberarEsquina(100,1)
+        depositarPapel
+  fin
+  robot servidor
+  variables
+    pedido,cantP,id:numero
+    aI,cI:numero
+  comenzar
+    {Para probar hago que el servidor junte papeles donde se inicia}
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+    {----------------------------------------------}
+    aI:=PosAv
+    cI:=PosCa
+    enviarIds
+    repetir 12 
+      RecibirMensaje(id,*)
+      Random(cantP,1,5)
+      BloquearEsquina(100,1)
+      Pos(100,1)
+      repetir cantP
+        depositarPapel
+      Pos(aI,cI)
+      LiberarEsquina(100,1)
+      si (id=1)
+        EnviarMensaje(cantP,rC1)
+      sino
+        si(id=2)
+          EnviarMensaje(cantP,rC2)
+        sino
+          si(id=3)
+            EnviarMensaje(cantP,rC3)
+  fin
+variables
+  rC1:cliente
+  rC2:cliente
+  rC3:cliente
+  rS:servidor
+comenzar
+  AsignarArea(rC1,area1)
+  AsignarArea(rC1,areaD)
+  AsignarArea(rC2,area2)
+  AsignarArea(rC2,areaD)
+  AsignarArea(rC3,area3)
+  AsignarArea(rC3,areaD)
+  AsignarArea(rS,areaS)
+  AsignarArea(rS,areaD)
+  Iniciar(rC1,10,1)
+  Iniciar(rC2,11,1)
+  Iniciar(rC3,12,1)
+  Iniciar(rS,13,1)
+fin
