@@ -1,0 +1,96 @@
+programa Ej3P5
+procesos
+  proceso rDepositar(E id:numero)
+  variables
+    av,ca:numero
+  comenzar
+    av:=PosAv
+    ca:=PosCa
+    BloquearEsquina(10,10)
+    Pos(10,10)
+    mientras(HayFlorEnLaBolsa)
+      depositarFlor
+    Pos(av,ca)
+    LiberarEsquina(10,10)
+    EnviarMensaje(id,rC)
+    EnviarMensaje(V,rC){Aviso para ir a recolectar}
+  fin
+  proceso enviarIds
+  comenzar
+    EnviarMensaje(1,rR1)
+    EnviarMensaje(2,rR2)
+  fin
+  proceso agarrarFlor(ES cantF:numero;E id:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+      si(cantF=10)
+        rDepositar(id)
+        cantF:=0
+  fin
+areas
+  areaR1:AreaP(1,3,100,3)
+  areaR2:AreaP(1,4,100,4)
+  areaRC:AreaP(1,5,1,5)
+  areaC:AreaC(10,10,10,10)
+robots
+  robot recolector
+  variables
+    cantF,pasos,id:numero
+  comenzar
+    RecibirMensaje(id,rC)
+    derecha
+    cantF:=0
+    repetir 99
+      agarrarFlor(cantF,id)
+      mover
+      pasos:=pasos+1
+      si(pasos=5)
+        rDepositar(id)
+        pasos:=0
+    agarrarFlor(cantF,id)
+    EnviarMensaje(id,rC)
+    EnviarMensaje(F,rC)
+  fin
+  robot cosechador
+  variables
+    totalF,id:numero
+    t,t1,t2:boolean
+  comenzar
+    enviarIds
+    t:=V
+    mientras(t)
+      RecibirMensaje(id,*)
+      si(id=1)
+        RecibirMensaje(t1,rR1)
+      sino
+        si(id=2)
+          RecibirMensaje(t2,rR2)
+      si((t1=F)&(t2=F))
+        t:=F
+      sino
+        BloquearEsquina(10,10)
+        Pos(10,10)
+        mientras(HayFlorEnLaEsquina)
+          tomarFlor
+          totalF:=totalF+1
+        Pos(1,5)
+        LiberarEsquina(10,10)
+    Informar('ElTotalDeFloresRecolectadasFueDe',totalF)
+  fin
+variables
+  rR1:recolector
+  rR2:recolector
+  rC:cosechador
+comenzar
+  AsignarArea(rR1,areaR1)
+  AsignarArea(rR2,areaR2)
+  AsignarArea(rR1,areaC)
+  AsignarArea(rR2,areaC)
+  AsignarArea(rC,areaRC)
+  AsignarArea(rC,areaC)
+  Iniciar(rR1,1,3)
+  Iniciar(rR2,1,4)
+  Iniciar(rC,1,5)
+fin
