@@ -13,6 +13,12 @@ procesos
     Pos(av,ca)
     LiberarEsquina(10,10)
     EnviarMensaje(id,rC)
+    EnviarMensaje(V,rC){Aviso para ir a recolectar}
+  fin
+  proceso enviarIds
+  comenzar
+    EnviarMensaje(1,rR1)
+    EnviarMensaje(2,rR2)
   fin
   proceso agarrarFlor(ES cantF:numero;E id:numero)
   comenzar
@@ -33,9 +39,9 @@ robots
   variables
     cantF,pasos,id:numero
   comenzar
+    RecibirMensaje(id,rC)
     derecha
     cantF:=0
-    id:=1
     repetir 99
       agarrarFlor(cantF,id)
       mover
@@ -44,17 +50,26 @@ robots
         rDepositar(id)
         pasos:=0
     agarrarFlor(cantF,id)
-    id:=2
     EnviarMensaje(id,rC)
+    EnviarMensaje(F,rC)
   fin
   robot cosechador
   variables
-    totalF,id,r:numero
+    totalF,id:numero
+    t,t1,t2:boolean
   comenzar
-    r:=2
-    mientras(r>0)
+    enviarIds
+    t:=V
+    mientras(t)
       RecibirMensaje(id,*)
       si(id=1)
+        RecibirMensaje(t1,rR1)
+      sino
+        si(id=2)
+          RecibirMensaje(t2,rR2)
+      si((t1=F)&(t2=F))
+        t:=F
+      sino
         BloquearEsquina(10,10)
         Pos(10,10)
         mientras(HayFlorEnLaEsquina)
@@ -62,9 +77,6 @@ robots
           totalF:=totalF+1
         Pos(1,5)
         LiberarEsquina(10,10)
-      sino
-        si(id=2)
-          r:=r-1
     Informar('ElTotalDeFloresRecolectadasFueDe',totalF)
   fin
 variables
