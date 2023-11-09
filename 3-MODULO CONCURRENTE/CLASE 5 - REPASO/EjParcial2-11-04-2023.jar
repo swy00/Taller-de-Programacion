@@ -1,0 +1,124 @@
+programa parcial11042023
+procesos
+  proceso asignarIds
+  comenzar
+    EnviarMensaje(1,rR1)
+    EnviarMensaje(2,rR2)
+    EnviarMensaje(3,rR3)
+  fin
+  proceso generarAltoYAnchoRandom(ES alto:numero;ES ancho:numero)
+  variables
+    alto,ancho:numero
+  comenzar
+    Random(alto,1,5)
+    Random(ancho,1,10)
+  fin
+  proceso asignarTamaniosYEnviar
+  variables
+    alto,ancho:numero
+  comenzar
+    generarAltoYAnchoRandom(alto,ancho)
+    EnviarMensaje(alto,rR1)
+    EnviarMensaje(ancho,rR1)
+    generarAltoYAnchoRandom(alto,ancho)
+    EnviarMensaje(alto,rR2)
+    EnviarMensaje(ancho,rR2)
+    generarAltoYAnchoRandom(alto,ancho)
+    EnviarMensaje(alto,rR3)
+    EnviarMensaje(ancho,rR3)
+  fin
+  proceso agarrarFlor(ES cantF:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+  fin
+  proceso hacerLado(E largo:numero;ES cantF:numero;ES totalF:numero)
+  comenzar
+    repetir largo
+      agarrarFlor(cantF)
+      mover
+    agarrarFlor(cantF) 
+    totalF:=totalF+cantF 
+    depositar(cantF)
+  fin
+  proceso depositar(ES cantF:numero)
+  variables
+    aI,cI:numero
+  comenzar
+    aI:=PosAv
+    cI:=PosCa
+    repetir cantF
+      BloquearEsquina(25,25)
+      Pos(25,25)
+      depositarFlor
+      Pos(aI,cI)
+      LiberarEsquina(25,25)
+    cantF:=0
+  fin
+areas
+  areaD:AreaPC(25,25,25,25)
+  areaR1:AreaP(1,1,6,11)
+  areaR2:AreaP(7,1,12,11)
+  areaR3:AreaP(13,1,18,11)
+  areaC:AreaP(24,24,24,24)
+robots
+  robot recolector
+  variables
+    id,alto,ancho,cantF,totalF:numero
+  comenzar
+    cantF:=0
+    totalF:=0
+    RecibirMensaje(id,rC)
+    RecibirMensaje(alto,rC)
+    RecibirMensaje(ancho,rC)
+    hacerLado(ancho,cantF,totalF)
+    derecha
+    hacerLado(alto,cantF,totalF)
+    derecha
+    hacerLado(ancho,cantF,totalF)
+    derecha
+    hacerLado(alto,cantF,totalF)
+    EnviarMensaje(id,rC)
+    EnviarMensaje(totalF,rC)
+  fin
+  robot cordinador
+  variables
+    id,f,maxF,maxId:numero
+  comenzar
+    maxF:=0
+    asignarIds
+    asignarTamaniosYEnviar
+    repetir 3
+      RecibirMensaje(id,*)
+      si(id=1)
+        RecibirMensaje(f,rR1)
+      sino
+        si(id=2)
+          RecibirMensaje(f,rR2)
+        sino
+          si(id=3)
+            RecibirMensaje(f,rR3)
+      si(f>maxF)
+        maxId:=id
+        maxF:=f 
+    Informar('ElRobotQueMasFloresJuntoFue',maxId)
+  fin
+variables
+  rR1:recolector
+  rR2:recolector
+  rR3:recolector
+  rC:cordinador
+comenzar
+  AsignarArea(rR1,areaD)
+  AsignarArea(rR1,areaR1)
+  AsignarArea(rR2,areaD)
+  AsignarArea(rR2,areaR2)
+  AsignarArea(rR3,areaD)
+  AsignarArea(rR3,areaR3)
+  AsignarArea(rC,areaC)
+  Iniciar(rR1,1,1)
+  Iniciar(rR2,7,1)
+  Iniciar(rR3,13,1)
+  Iniciar(rC,24,24)
+fin
