@@ -5,7 +5,6 @@ procesos
     BloquearEsquina(15,15)
     Pos(15,15)
     tomarFlor
-    BloquearEsquina(aI,cI)
     Pos(aI,cI)
     LiberarEsquina(15,15)
     depositarFlor
@@ -15,7 +14,6 @@ procesos
     BloquearEsquina(15,15)
     Pos(15,15)
     tomarPapel
-    BloquearEsquina(aI,cI)
     Pos(aI,cI)
     LiberarEsquina(15,15)
     depositarPapel
@@ -54,7 +52,13 @@ robots
         cI:=4
         id:=2
     {El primer viaje es distinto ya que se pueden chocar en el inicio}
-    tareaVertical(aI,cI)
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarPapel
+    BloquearEsquina(aI,cI)
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarPapel
     mover
     LiberarEsquina(aI,cI)
     cI:=PosCa
@@ -81,7 +85,13 @@ robots
         aI:=11
         cI:=4
         id:=2
-    tareaHorizontal(aI,cI)
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarFlor
+    BloquearEsquina(aI,cI)
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarFlor
     mover
     LiberarEsquina(aI,cI)
     aI:=PosAv
@@ -140,5 +150,8 @@ comenzar
   Iniciar(r2H,53,53)
   Iniciar(rF,1,1)
 fin
+
+
+
 
 
