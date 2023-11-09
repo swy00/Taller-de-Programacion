@@ -1,0 +1,131 @@
+programa EjParcial20181
+areas
+  areaL:AreaPC(15,15,15,15)
+  area1V:AreaP(50,50,50,50)
+  area1H:AreaP(51,51,51,51)
+  area2V:AreaP(52,52,52,52)
+  area2H:AreaP(53,53,53,53)
+  {Area General de la L del equipo 2}
+  areaE2:AreaPC(11,3,16,16)
+  {Area General de la L del equipo 1}
+  areaE1:AreaPC(5,3,10,16)
+  areaF:AreaP(1,1,1,1)
+robots
+  robot vertical
+  variables
+    aI,cI,id:numero
+  comenzar
+    aI:=PosAv
+    si (aI=50)
+      aI:=5
+      cI:=4
+      id:=1
+    sino
+      si(aI=52)
+        aI:=11
+        cI:=4
+        id:=2
+    {El primer viaje es distinto ya que se pueden chocar en el inicio}
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarPapel
+    BloquearEsquina(aI,cI)
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarPapel
+    mover
+    LiberarEsquina(aI,cI)
+    cI:=PosCa
+    {-------------------}
+    repetir 11
+      BloquearEsquina(15,15)
+      Pos(15,15)
+      tomarPapel
+      Pos(aI,cI)
+      LiberarEsquina(15,15)
+      depositarPapel
+      mover
+      cI:=PosCa
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarPapel
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarPapel
+    EnviarMensaje(id,rF)
+  fin
+  robot horizontal
+  variables
+    aI,cI,id:numero
+  comenzar
+    derecha
+    aI:=PosAv
+    si(aI=51)
+      aI:=5
+      cI:=4
+      id:=1
+    sino
+      si(aI=53)
+        aI:=11
+        cI:=4
+        id:=2
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarFlor
+    BloquearEsquina(aI,cI)
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarFlor
+    mover
+    LiberarEsquina(aI,cI)
+    aI:=PosAv
+    repetir 4
+      BloquearEsquina(15,15)
+      Pos(15,15)
+      tomarFlor
+      Pos(aI,cI)
+      LiberarEsquina(15,15)
+      depositarFlor
+      mover
+      aI:=PosAv
+  fin
+  robot fisca
+  variables
+    id:numero
+  comenzar
+    {SUPONGO QUE EL ULTIMO LADO EN COMPLETARSE VA A SER EL VERTICAL POR SU LONGITUD, POR LO TANTO ESTO DETERMINA EL GANADOR}
+    RecibirMensaje(id,*)
+    si(id=1)
+      RecibirMensaje(id,r2V)
+      Informar('ElEquipoGanadorEsElNumero',1)
+    sino
+      si(id=2)
+        RecibirMensaje(id,r1V)
+        Informar('ElEquipoGanadorEsElNumero',2)
+  fin
+variables
+  r1V:vertical
+  r1H:horizontal
+  r2V:vertical
+  r2H:horizontal
+  rF:fisca
+comenzar
+  AsignarArea(r1V,areaL)
+  AsignarArea(r1V,area1V)
+  AsignarArea(r1V,areaE1)
+  AsignarArea(r1H,areaE1)
+  AsignarArea(r1H,areaL)
+  AsignarArea(r1H,area1H)
+  AsignarArea(r2V,areaL)
+  AsignarArea(r2V,areaE2)
+  AsignarArea(r2V,area2V)
+  AsignarArea(r2H,areaL)
+  AsignarArea(r2H,areaE2)
+  AsignarArea(r2H,area2H)
+  AsignarArea(rF,areaF)
+  Iniciar(r1V,50,50)
+  Iniciar(r1H,51,51)
+  Iniciar(r2V,52,52)
+  Iniciar(r2H,53,53)
+  Iniciar(rF,1,1)
+fin
