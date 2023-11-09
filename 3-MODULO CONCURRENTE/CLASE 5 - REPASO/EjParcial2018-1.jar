@@ -1,14 +1,42 @@
 programa EjParcial20181
+procesos
+  proceso tareaHorizontal(E aI:numero;E cI:numero)
+  comenzar
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarFlor
+    BloquearEsquina(aI,cI)
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarFlor
+  fin
+  proceso tareaVertical(E aI:numero;E cI:numero)
+  comenzar
+    BloquearEsquina(15,15)
+    Pos(15,15)
+    tomarPapel
+    BloquearEsquina(aI,cI)
+    Pos(aI,cI)
+    LiberarEsquina(15,15)
+    depositarPapel
+  fin
 areas
+  {AREA DE FLORES Y PAPELES}
   areaL:AreaPC(15,15,15,15)
+  {POS INICIALES}
   area1V:AreaP(50,50,50,50)
   area1H:AreaP(51,51,51,51)
   area2V:AreaP(52,52,52,52)
   area2H:AreaP(53,53,53,53)
-  {Area General de la L del equipo 2}
-  areaE2:AreaPC(11,3,16,16)
-  {Area General de la L del equipo 1}
-  areaE1:AreaPC(5,3,10,16)
+  {AREA DE EQUIPO 2}
+  areaE2V:AreaP(11,5,11,16)
+  areaE2C:AreaPC(11,4,11,4)
+  areaE2H:AreaP(12,4,16,4)
+  {AREA DE EQUIPO 1}
+  areaE1V:AreaP(5,5,5,16)
+  areaE1C:AreaPC(5,4,5,4)
+  areaE1H:AreaP(6,4,10,4)
+  {POS INICIAL FISCAL}
   areaF:AreaP(1,1,1,1)
 robots
   robot vertical
@@ -26,32 +54,16 @@ robots
         cI:=4
         id:=2
     {El primer viaje es distinto ya que se pueden chocar en el inicio}
-    BloquearEsquina(15,15)
-    Pos(15,15)
-    tomarPapel
-    BloquearEsquina(aI,cI)
-    Pos(aI,cI)
-    LiberarEsquina(15,15)
-    depositarPapel
+    tareaVertical(aI,cI)
     mover
     LiberarEsquina(aI,cI)
     cI:=PosCa
     {-------------------}
     repetir 11
-      BloquearEsquina(15,15)
-      Pos(15,15)
-      tomarPapel
-      Pos(aI,cI)
-      LiberarEsquina(15,15)
-      depositarPapel
+      tareaVertical(aI,cI)
       mover
       cI:=PosCa
-    BloquearEsquina(15,15)
-    Pos(15,15)
-    tomarPapel
-    Pos(aI,cI)
-    LiberarEsquina(15,15)
-    depositarPapel
+    tareaVertical(aI,cI)
     EnviarMensaje(id,rF)
   fin
   robot horizontal
@@ -69,23 +81,12 @@ robots
         aI:=11
         cI:=4
         id:=2
-    BloquearEsquina(15,15)
-    Pos(15,15)
-    tomarFlor
-    BloquearEsquina(aI,cI)
-    Pos(aI,cI)
-    LiberarEsquina(15,15)
-    depositarFlor
+    tareaHorizontal(aI,cI)
     mover
     LiberarEsquina(aI,cI)
     aI:=PosAv
     repetir 4
-      BloquearEsquina(15,15)
-      Pos(15,15)
-      tomarFlor
-      Pos(aI,cI)
-      LiberarEsquina(15,15)
-      depositarFlor
+      tareaHorizontal(aI,cI)
       mover
       aI:=PosAv
   fin
@@ -110,22 +111,34 @@ variables
   r2H:horizontal
   rF:fisca
 comenzar
+  {ROBOT VERTICAL EQUPO 1}
   AsignarArea(r1V,areaL)
+  AsignarArea(r1V,areaE1C)
   AsignarArea(r1V,area1V)
-  AsignarArea(r1V,areaE1)
-  AsignarArea(r1H,areaE1)
+  AsignarArea(r1V,areaE1V)
+  {ROBOT HORIZONTAL EQUIPO 1}
+  AsignarArea(r1H,areaE1H)
+  AsignarArea(r1H,areaE1C)
   AsignarArea(r1H,areaL)
   AsignarArea(r1H,area1H)
+  {ROBOT VERTICAL EQUIPO 2}
   AsignarArea(r2V,areaL)
-  AsignarArea(r2V,areaE2)
+  AsignarArea(r2V,areaE2C)
+  AsignarArea(r2V,areaE2V)
   AsignarArea(r2V,area2V)
+  {ROBOT HORIZONTAL EQUIPO 2}
   AsignarArea(r2H,areaL)
-  AsignarArea(r2H,areaE2)
+  AsignarArea(r2H,areaE2C)
+  AsignarArea(r2H,areaE2H)
   AsignarArea(r2H,area2H)
+  {ROBOT FISCAL}
   AsignarArea(rF,areaF)
+  
   Iniciar(r1V,50,50)
   Iniciar(r1H,51,51)
   Iniciar(r2V,52,52)
   Iniciar(r2H,53,53)
   Iniciar(rF,1,1)
 fin
+
+
