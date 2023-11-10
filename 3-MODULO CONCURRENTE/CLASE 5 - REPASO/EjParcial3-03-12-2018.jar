@@ -1,0 +1,121 @@
+programa ejParcial3122018
+procesos
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso agarrarTodo(ES cantE:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantE:=cantE+1
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantE:=cantE+1
+  fin
+  proceso hacerLado(E l:numero;ES cantE:numero)
+  comenzar
+    repetir l
+      agarrarTodo(cantE)
+      mover
+    agarrarTodo(cantE)
+  fin
+  proceso esquinaChoque(E av:numero;E ca:numero;ES cantE:numero)
+  comenzar
+    BloquearEsquina(av,ca)
+    mover
+    agarrarTodo(cantE)
+    mover
+    LiberarEsquina(av,ca)
+  fin
+areas
+  areaH1:AreaPC(1,2,9,4)
+  areaRH1:AreaP(20,1,20,1)
+  areaH2:AreaPC(1,6,9,8)
+  areaRH2:AreaP(20,2,20,2)
+  areaV1:AreaPC(2,1,4,9)
+  areaRV1:AreaP(20,4,20,4)
+  areaV2:AreaPC(6,1,8,9)
+  areaRV2:AreaP(20,5,20,5)
+  areaJ:AreaP(20,15,20,15)
+robots
+  robot tipo1{Vertical}
+  variables
+    cantE,av,ca:numero
+  comenzar
+    ca:=PosCa
+    av:=PosAv
+    si(ca=4)
+      av:=2
+      ca:=1
+    sino
+      si(ca=5)
+        av:=6
+        ca:=1  
+    Pos(av,ca) 
+    derecha    
+    hacerLado(2,cantE)
+    izquierda
+    av:=PosAv
+    esquinaChoque(av,2,cantE)
+    hacerLado(2,cantE)
+    esquinaChoque(av,6,cantE)
+    hacerLado(2,cantE)
+    EnviarMensaje(cantE,rJ)
+  fin
+  robot tipo2{Horizontal}
+  variables
+    cantE,ca,av:numero
+  comenzar
+    ca:=PosCa
+    av:=PosAv
+    si(ca=1)
+      av:=1
+      ca:=2
+    sino
+      si(ca=2)
+        av:=1
+        ca:=6
+    Pos(av,ca)
+    derecha
+    hacerLado(2,cantE)
+    ca:=PosCa
+    esquinaChoque(4,ca,cantE)
+    hacerLado(2,cantE)
+    esquinaChoque(8,ca,cantE)
+    izquierda
+    hacerLado(2,cantE)
+    EnviarMensaje(cantE,rJ)
+  fin
+  robot jefe
+  variables
+    cantE,totalE:numero
+  comenzar
+    repetir 4
+      RecibirMensaje(cantE,*)
+      totalE:=totalE+cantE
+    Informar('LaCantTotalDeElementosJuntadosEsDe',totalE)
+  fin
+variables
+  rV1:tipo1
+  rV2:tipo1
+  rH1:tipo2
+  rH2:tipo2
+  rJ:jefe
+comenzar
+  AsignarArea(rV1,areaV1)
+  AsignarArea(rV1,areaRV1)
+  AsignarArea(rV2,areaV2)
+  AsignarArea(rV2,areaRV2)
+  AsignarArea(rH1,areaH1)
+  AsignarArea(rH1,areaRH1)
+  AsignarArea(rH2,areaH2)
+  AsignarArea(rH2,areaRH2)
+  AsignarArea(rJ,areaJ)
+  Iniciar(rV1,20,4)
+  Iniciar(rV2,20,5)
+  Iniciar(rH1,20,1)
+  Iniciar(rH2,20,2)
+  Iniciar(rJ,20,15)
+fin
